@@ -1,0 +1,18 @@
+/* Scroll Progress Indicator */
+.scroll-progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    z-index: 1001;
+    background-color: transparent;
+}
+
+.scroll-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--primary-gradient);
+    box-shadow: 0 1px 5px rgba(67, 97, 238, 0.5);
+    transition: width 50ms ease;
+}

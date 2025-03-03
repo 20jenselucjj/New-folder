@@ -2,34 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Modern landing page for business solutions and services">
-    <meta name="keywords" content="business, solutions, services, platform">
+    <meta name="viewport"="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Innovative solutions for modern businesses - boost productivity and transform your workflow">
+    <meta name="keywords" content="business solutions, productivity, workflow optimization, innovation, digital transformation">
     <meta name="author" content="BrandName">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://yourdomain.com/">
-    <meta property="og:title" content="Modern Landing Page | BrandName">
-    <meta property="og:description" content="The perfect solution for your business needs. Boost productivity and streamline your workflow.">
+    <meta property="og:title" content="Transform Your Business | BrandName">
+    <meta property="og:description" content="Unlock new levels of productivity with our innovative platform. Join industry leaders who've revolutionized their workflow.">
     <meta property="og:image" content="https://yourdomain.com/images/og-image.jpg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://yourdomain.com/">
-    <meta property="twitter:title" content="Modern Landing Page | BrandName">
-    <meta property="twitter:description" content="The perfect solution for your business needs. Boost productivity and streamline your workflow.">
+    <meta property="twitter:title" content="Transform Your Business | BrandName">
+    <meta property="twitter:description" content="Unlock new levels of productivity with our innovative platform. Join industry leaders who've revolutionized their workflow.">
     <meta property="twitter:image" content="https://yourdomain.com/images/og-image.jpg">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="https://via.placeholder.com/32" type="image/x-icon">
-    <link rel="icon" href="https://via.placeholder.com/32" type="image/x-icon">
+    <link rel="shortcut icon" href="https://placehold.co/32x32" type="image/x-icon">
+    <link rel="icon" href="https://placehold.co/32x32" type="image/x-icon">
     
-    <title>Modern Landing Page | BrandName</title>
-    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <title>Transform Your Business | BrandName</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/floating-action.css">
+    <link rel="stylesheet" href="css/chat-widget.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Add AOS library for scroll animations -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress-bar" id="scrollProgress"></div>
+    </div>
+    
     <!-- Preloader -->
     <div class="preloader" id="preloader">
         <div class="loader">
@@ -62,39 +76,30 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="container">
-            <div class="hero-content">
-                <h1>Welcome to Our Platform</h1>
-                <p>The perfect solution for your business needs. Boost productivity and streamline your workflow.</p>
+            <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
+                <h1>Transform Your <span>Business Workflow</span></h1>
+                <p>Unlock unprecedented efficiency with our intelligent platform. Join over 10,000+ companies that have revolutionized their operations and achieved remarkable growth.</p>
                 <div class="hero-buttons">
-                    <a href="#" class="btn btn-primary">Get Started</a>
-                    <a href="#" class="btn btn-secondary">Learn More</a>
+                    <a href="#" class="btn btn-primary">Start Free Trial <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="btn btn-secondary">Watch Demo <i class="fas fa-play-circle"></i></a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Enterprise-grade security</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-rocket"></i>
+                        <span>Setup in minutes</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-heart"></i>
+                        <span>24/7 support</span>
+                    </div>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="https://via.placeholder.com/600x400" alt="Hero Image">
-            </div>
-        </div>
-    </section>
-
-    <!-- Client Logos Section -->
-    <section class="client-logos">
-        <div class="container">
-            <div class="logos-grid">
-                <div class="logo-item">
-                    <img src="https://via.placeholder.com/150x80?text=Client+Logo" alt="Client Logo">
-                </div>
-                <div class="logo-item">
-                    <img src="https://via.placeholder.com/150x80?text=Client+Logo" alt="Client Logo">
-                </div>
-                <div class="logo-item">
-                    <img src="https://via.placeholder.com/150x80?text=Client+Logo" alt="Client Logo">
-                </div>
-                <div class="logo-item">
-                    <img src="https://via.placeholder.com/150x80?text=Client+Logo" alt="Client Logo">
-                </div>
-                <div class="logo-item">
-                    <img src="https://via.placeholder.com/150x80?text=Client+Logo" alt="Client Logo">
-                </div>
+            <div class="hero-image" data-aos="fade-left" data-aos-duration="1000">
+                <img src="https://images.unsplash.com/photo-1617791160505-6f00504e3519?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="3D Hero Image of Modern Workspace">
             </div>
         </div>
     </section>
@@ -102,38 +107,38 @@
     <!-- Features Section -->
     <section id="features" class="features">
         <div class="container">
-            <div class="section-header">
-                <h2>Our Features</h2>
-                <p>What makes our platform stand out from the rest</p>
+            <div class="section-header" data-aos="fade-up">
+                <h2>Powerful Features</h2>
+                <p>Discover why industry leaders choose our platform</p>
             </div>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="feature-icon">
                         <i class="fas fa-rocket"></i>
                     </div>
-                    <h3>Fast Performance</h3>
-                    <p>Lightning-fast loading times and smooth performance on all devices.</p>
+                    <h3>Lightning Performance</h3>
+                    <p>Experience blazing-fast load times with our optimized infrastructure, ensuring your team never waits.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="feature-icon">
-                        <i class="fas fa-lock"></i>
+                        <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Secure Platform</h3>
-                    <p>Industry-leading security measures to protect your data.</p>
+                    <h3>Enterprise Security</h3>
+                    <p>Military-grade encryption and compliance with international security standards protect your valuable data.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="feature-icon">
                         <i class="fas fa-sync-alt"></i>
                     </div>
-                    <h3>Regular Updates</h3>
-                    <p>Continuous improvements and new features added regularly.</p>
+                    <h3>Seamless Updates</h3>
+                    <p>Stay ahead with continuous improvements and cutting-edge features delivered automatically.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="feature-icon">
                         <i class="fas fa-headset"></i>
                     </div>
-                    <h3>24/7 Support</h3>
-                    <p>Our support team is always available to help you.</p>
+                    <h3>Dedicated Support</h3>
+                    <p>Our expert support team is available 24/7 to ensure your success at every step of your journey.</p>
                 </div>
             </div>
         </div>
@@ -177,7 +182,7 @@
                     <a href="#" class="btn btn-primary">Learn More</a>
                 </div>
                 <div class="about-image">
-                    <img src="https://via.placeholder.com/500x400" alt="About Us Image">
+                    <img src="https://img.freepik.com/free-vector/3d-cartoon-young-woman-working-laptop_107791-16741.jpg?w=500&h=400&q=80" alt="3D About Us Image Showing Team Collaboration">
                 </div>
             </div>
         </div>
@@ -186,39 +191,69 @@
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials">
         <div class="container">
-            <div class="section-header">
-                <h2>What Our Clients Say</h2>
-                <p>Testimonials from our satisfied customers</p>
+            <div class="section-header" data-aos="fade-up">
+                <h2>Success Stories</h2>
+                <p>Hear from leaders who transformed their businesses with our platform</p>
             </div>
             <div class="testimonial-slider" id="testimonialSlider">
-                <div class="testimonial-card">
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="testimonial-image">
-                        <img src="https://via.placeholder.com/100" alt="Client 1">
+                        <img src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436180.jpg?w=740&t=st=1718949250~exp=1718949850~hmac=0f976593e1ba2bbce1e309f66c4c1f41a9d93a4b8a1142ddb4d3e67f905a6356" alt="Emma Richardson - CEO, Innovate Solutions">
+                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
                     </div>
                     <div class="testimonial-content">
-                        <p>"This platform has transformed how we do business. The efficiency gains have been remarkable."</p>
-                        <h4>Jane Doe</h4>
-                        <p class="position">CEO, Company XYZ</p>
+                        <p>"Since implementing this platform, our team's productivity increased by 38% and client satisfaction scores are at an all-time high. The ROI has been remarkable."</p>
+                        <div class="client-info">
+                            <h4>Emma Richardson</h4>
+                            <p class="position">CEO, Innovate Solutions</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="testimonial-card">
                     <div class="testimonial-image">
-                        <img src="https://via.placeholder.com/100" alt="Client 2">
+                        <img src="https://img.freepik.com/free-psd/3d-illustration-person-with-glasses_23-2149436189.jpg?w=740&t=st=1718949208~exp=1718949808~hmac=b01f94cc55b62a1c5332ebc8db4ed58956dc83e917aa82f1329d4517ae88ebc6" alt="John Smith - Director, ABC Corp">
+                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
                     </div>
                     <div class="testimonial-content">
-                        <p>"Exceptional service and a product that truly delivers on its promises. Highly recommended."</p>
-                        <h4>John Smith</h4>
-                        <p class="position">Director, ABC Corp</p>
+                        <p>"Exceptional service and a product that truly delivers on its promises. We've integrated it across all our departments and seen a 45% reduction in operational bottlenecks."</p>
+                        <div class="client-info">
+                            <h4>John Smith</h4>
+                            <p class="position">Director, ABC Corp</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="testimonial-card">
                     <div class="testimonial-image">
-                        <img src="https://via.placeholder.com/100" alt="Client 3">
+                        <img src="https://img.freepik.com/free-psd/3d-illustration-person-with-glasses-bow_23-2149436186.jpg?w=740&t=st=1718949321~exp=1718949921~hmac=45901e4fc3911baa82594a8cb397fca4c9d0b7a04d06f72eb6c51d697fca2e41" alt="Sarah Johnson - COO, Tech Solutions">
+                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
                     </div>
                     <div class="testimonial-content">
-                        <p>"We've seen a 40% increase in productivity since implementing this solution."</p>
-                        <h4>Sarah Johnson</h4>
-                        <p class="position">COO, Tech Solutions</p>
+                        <p>"We've seen a 40% increase in productivity since implementing this solution. The platform's analytics have given us insights that transformed our business strategy entirely."</p>
+                        <div class="client-info">
+                            <h4>Sarah Johnson</h4>
+                            <p class="position">COO, Tech Solutions</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -406,6 +441,16 @@
                 <h2>Contact Us</h2>
                 <p>Get in touch with our team</p>
             </div>
+            <div class="map-container" data-aos="fade-up">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9916256937604!2d2.292292615282164!3d48.85836717928738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sEiffel%20Tower!5e0!3m2!1sen!2sus!4v1622812193099!5m2!1sen!2sus" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy"
+                        title="Google Map Location">
+                </iframe>
+            </div>
             <div class="contact-content">
                 <div class="contact-form">
                     <form id="contactForm">
@@ -514,11 +559,41 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="js/chat-widget.js"></script>
     
     <!-- Back to Top Button -->
     <a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
         <i class="fas fa-chevron-up"></i>
     </a>
+    
+    <!-- Action Buttons -->
+    <button class="floating-btn dark-mode-btn" id="darkModeBtn" aria-label="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+    
+    <!-- Chat Button -->
+    <button class="floating-btn chat-btn" id="chatButton" aria-label="Open Chat">
+        <i class="fas fa-comments"></i>
+    </button>
+    
+    <!-- Chat Widget -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <h4><i class="fas fa-comment-dots"></i> BrandName Support</h4>
+            <button class="chat-close" id="closeChat" aria-label="Close chat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <!-- Messages will be added here dynamically -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="Type your message here..." aria-label="Type your message">
+            <button id="sendMessage" aria-label="Send message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
     
     <!-- Cookie Consent Banner -->
     <div class="cookie-banner" id="cookieBanner">
@@ -530,5 +605,17 @@
             </div>
         </div>
     </div>
+
+    <!-- Before closing body tag, add AOS initialization -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+    </script>
 </body>
 </html>

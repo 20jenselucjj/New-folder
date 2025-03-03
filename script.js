@@ -9,7 +9,53 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 500);
         });
     }
-    
+
+    // Dark mode functionality
+    const body = document.querySelector('body');
+    const darkModeBtn = document.getElementById('darkModeBtn');
+
+    darkModeBtn.addEventListener('click', () => {
+        if (body.classList.contains('dark-mode')) {
+            body.classList.remove('dark-mode');
+            localStorage.setItem('theme', 'light');
+            darkModeBtn.querySelector('i').className = 'fas fa-moon';
+        } else {
+            body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+            darkModeBtn.querySelector('i').className = 'fas fa-sun';
+        }
+    });
+
+    // Check for saved theme preference or respect OS preference
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
+        body.classList.add('dark-mode');
+        darkModeBtn.querySelector('i').className = 'fas fa-sun';
+    }
+
+    // Function to show notifications
+    function showNotification(message, type = 'info') {
+        let notification = document.querySelector('.notification');
+        if (!notification) {
+            notification = document.createElement('div');
+            notification.className = 'notification';
+            document.body.appendChild(notification);
+        }
+        
+        notification.textContent = message;
+        notification.className = `notification ${type}`;
+        
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 4000);
+    }
+
     // Cookie consent functionality
     const cookieBanner = document.getElementById('cookieBanner');
     const cookieAccept = document.getElementById('cookieAccept');
@@ -65,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let currentIndex = 0;
     const totalTestimonials = testimonials.length;
+    let autoplayInterval;
     
     function showTestimonial(index) {
         if (index < 0) {
@@ -79,13 +126,34 @@ document.addEventListener('DOMContentLoaded', function() {
         testimonialSlider.scrollLeft = slideWidth * currentIndex;
     }
     
+    function startAutoplay() {
+        autoplayInterval = setInterval(() => {
+            showTestimonial(currentIndex + 1);
+        }, 5000); // Change testimonial every 5 seconds
+    }
+    
+    function stopAutoplay() {
+        clearInterval(autoplayInterval);
+    }
+    
     prevBtn.addEventListener('click', () => {
+        stopAutoplay();
         showTestimonial(currentIndex - 1);
+        startAutoplay();
     });
     
     nextBtn.addEventListener('click', () => {
+        stopAutoplay();
         showTestimonial(currentIndex + 1);
+        startAutoplay();
     });
+    
+    // Start autoplay
+    startAutoplay();
+    
+    // Pause autoplay when hovering over testimonials
+    testimonialSlider.addEventListener('mouseenter', stopAutoplay);
+    testimonialSlider.addEventListener('mouseleave', startAutoplay);
     
     // Back to top button functionality
     const backToTopBtn = document.getElementById('backToTop');
@@ -106,6 +174,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Back to Top Button Logic
+    const backToTopButton = document.getElementById('backToTop');
+    
+    // Show back to top button when scrolling down
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+            backToTopButton.classList.add('show');
+        } else {
+            backToTopButton.classList.remove('show');
+        }
+    });
+    
+    // Smooth scroll to top when clicked
+    backToTopButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // For smooth scrolling effect
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
     // FAQ functionality
     const faqItems = document.querySelectorAll('.faq-item');
     
@@ -114,16 +205,34 @@ document.addEventListener('DOMContentLoaded', function() {
             const question = item.querySelector('.faq-question');
             
             question.addEventListener('click', () => {
-                // Close all other FAQ items
+                // Get the current active state of the clicked item
+                const isActive = item.classList.contains('active');
+                
+                // Close all other FAQ items with smooth animation
                 faqItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('active');
-                    }
+                    otherItem.classList.remove('active');
                 });
                 
-                // Toggle current item
-                item.classList.toggle('active');
+                // Toggle current item after a slight delay if it wasn't active
+                if (!isActive) {
+                    setTimeout(() => {
+                        item.classList.add('active');
+                    }, 10); // Small delay helps with animation sequence
+                }
             });
+            
+            // Allow keyboard navigation
+            question.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    question.click();
+                }
+            });
+            
+            // Add tabindex for accessibility
+            question.setAttribute('tabindex', '0');
+            question.setAttribute('role', 'button');
+            question.setAttribute('aria-expanded', 'false');
         });
     }
     
@@ -181,8 +290,52 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form submission handling
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
+        const formInputs = contactForm.querySelectorAll('input, textarea');
+        
+        formInputs.forEach(input => {
+            // Add focus effects
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('focused');
+                if (this.value.trim() !== '') {
+                    this.parentElement.classList.add('filled');
+                } else {
+                    this.parentElement.classList.remove('filled');
+                }
+                
+                // Simple validation
+                if (this.required && this.value.trim() === '') {
+                    this.parentElement.classList.add('error');
+                } else if (this.type === 'email' && !validateEmail(this.value) && this.value.trim() !== '') {
+                    this.parentElement.classList.add('error');
+                } else {
+                    this.parentElement.classList.remove('error');
+                }
+            });
+        });
+        
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Validate all fields
+            let isValid = true;
+            formInputs.forEach(input => {
+                if (input.required && input.value.trim() === '') {
+                    input.parentElement.classList.add('error');
+                    isValid = false;
+                } else if (input.type === 'email' && !validateEmail(input.value)) {
+                    input.parentElement.classList.add('error');
+                    isValid = false;
+                }
+            });
+            
+            if (!isValid) {
+                showNotification('Please fill in all required fields correctly.', 'error');
+                return;
+            }
             
             // Get form values
             const name = document.getElementById('name').value;
@@ -193,12 +346,21 @@ document.addEventListener('DOMContentLoaded', function() {
             // You would typically send this data to a server
             console.log('Form submission:', { name, email, subject, message });
             
-            // Show success message (in a real app, this would happen after successful API response)
-            alert('Thank you for your message! We will get back to you soon.');
+            // Show success message 
+            showNotification('Thank you for your message! We will get back to you soon.', 'success');
             
             // Reset form
             contactForm.reset();
+            formInputs.forEach(input => {
+                input.parentElement.classList.remove('filled');
+            });
         });
+    }
+    
+    // Helper function to validate email
+    function validateEmail(email) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
     }
     
     // Newsletter form
@@ -224,6 +386,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
+            // Skip for empty href or just "#"
+            if (this.getAttribute('href') === '#' || this.getAttribute('href') === '') {
+                return;
+            }
+            
             e.preventDefault();
             
             const target = document.querySelector(this.getAttribute('href'));
@@ -257,4 +424,114 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize the page
     updateActiveNavLink();
+    initRevealAnimations();
+    revealOnScroll();
+    
+    // Enhanced scroll reveal functionality
+    function revealOnScroll() {
+        const reveals = document.querySelectorAll('.reveal');
+        
+        reveals.forEach(element => {
+            const windowHeight = window.innerHeight;
+            const revealTop = element.getBoundingClientRect().top;
+            const revealPoint = 150;
+            
+            // Add active class for reveal animation, but don't disrupt FAQ functionality
+            if (revealTop < windowHeight - revealPoint) {
+                // If it's a FAQ item, we don't want to toggle its open/closed state
+                if (element.classList.contains('faq-item')) {
+                    // Just add active to the reveal effect, not to the FAQ item itself
+                    element.classList.add('reveal-active');
+                } else {
+                    // For non-FAQ elements, add the standard active class
+                    element.classList.add('active');
+                }
+            }
+        });
+    }
+    
+    window.addEventListener('scroll', revealOnScroll);
+    
+    // Add reveal classes to elements
+    function initRevealAnimations() {
+        document.querySelectorAll('.feature-card').forEach((el, index) => {
+            el.classList.add('reveal', 'reveal-up');
+            el.style.transitionDelay = `${index * 0.1}s`;
+        });
+        
+        document.querySelectorAll('.section-header').forEach(el => {
+            el.classList.add('reveal', 'reveal-up');
+        });
+        
+        document.querySelectorAll('.about-text').forEach(el => {
+            el.classList.add('reveal', 'reveal-left');
+        });
+        
+        document.querySelectorAll('.about-image').forEach(el => {
+            el.classList.add('reveal', 'reveal-right');
+        });
+        
+        document.querySelectorAll('.pricing-card').forEach((el, index) => {
+            el.classList.add('reveal', 'reveal-up');
+            el.style.transitionDelay = `${index * 0.1}s`;
+        });
+        
+        // Modified: Don't add 'active' class to FAQ items on scroll reveal
+        document.querySelectorAll('.faq-item').forEach((el, index) => {
+            // Only add reveal classes, not active class
+            el.classList.add('reveal', 'reveal-up');
+            el.style.transitionDelay = `${index * 0.1}s`;
+            
+            // Make sure any existing active classes are removed on page load
+            el.classList.remove('active');
+        });
+        
+        document.querySelectorAll('.info-item').forEach((el, index) => {
+            el.classList.add('reveal', 'reveal-up');
+            el.style.transitionDelay = `${index * 0.1}s`;
+        });
+        
+        document.querySelectorAll('.contact-form').forEach(el => {
+            el.classList.add('reveal', 'reveal-left');
+        });
+        
+        document.querySelectorAll('.contact-info').forEach(el => {
+            el.classList.add('reveal', 'reveal-right');
+        });
+    }
+    
+    initRevealAnimations();
+    revealOnScroll(); // Check on initial page load
+    
+    // Parallax effect for hero section
+    const heroSection = document.querySelector('.hero');
+    if (heroSection) {
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            if (scrollPosition < 600) {
+                const translateY = scrollPosition * 0.2;
+                heroSection.style.backgroundPositionY = `-${translateY}px`;
+            }
+        });
+    }
+
+    // Scroll Progress Indicator functionality
+    const scrollProgress = document.getElementById('scrollProgress');
+
+    function updateScrollProgress() {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrollPercentage = (scrollTop / scrollHeight) * 100;
+        
+        scrollProgress.style.width = scrollPercentage + '%';
+        
+        // Add subtle glow effect when scrolling quickly
+        scrollProgress.style.boxShadow = '0 1px 5px rgba(67, 97, 238, 0.5)';
+        clearTimeout(scrollProgress.timeout);
+        scrollProgress.timeout = setTimeout(() => {
+            scrollProgress.style.boxShadow = '0 1px 3px rgba(67, 97, 238, 0.3)';
+        }, 100);
+    }
+
+    window.addEventListener('scroll', updateScrollProgress);
 });

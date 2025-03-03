@@ -1,0 +1,112 @@
+/* Animation Effects */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(67, 97, 238, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(67, 97, 238, 0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes wave {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(14deg);
+    }
+    20% {
+        transform: rotate(-8deg);
+    }
+    30% {
+        transform: rotate(14deg);
+    }
+    40% {
+        transform: rotate(-4deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+    60% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* Apply animations to elements */
+.feature-icon, .info-icon {
+    animation: float 3s ease-in-out infinite;
+}
+
+.btn-primary:hover {
+    animation: pulse 1.5s infinite;
+}
+
+.cta-icon {
+    display: inline-block;
+    animation: wave 2.5s infinite;
+    transform-origin: 70% 70%;
+}
+
+/* Scroll reveal animations */
+.reveal {
+    position: relative;
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+}
+
+.reveal-left {
+    transform: translateX(-50px);
+}
+
+.reveal-right {
+    transform: translateX(50px);
+}
+
+.reveal-up {
+    transform: translateY(50px);
+}
+
+.reveal.active {
+    transform: translateX(0);
+    transform: translateY(0);
+}
+
+/* Hover effects for cards */
+.feature-card:hover .feature-icon,
+.pricing-card:hover .pricing-header h3,
+.info-item:hover .info-icon {
+    animation: wave 1s ease;
+}

@@ -1,0 +1,176 @@
+/* Floating Buttons */
+.floating-btn {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    border: none;
+    z-index: 99;
+}
+
+.floating-btn:hover {
+    transform: translateY(-5px);
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    right: 30px;
+    bottom: 160px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(76, 201, 240, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    z-index: 99;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    opacity: 0;
+    visibility: hidden;
+    text-decoration: none;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 6px 20px rgba(76, 201, 240, 0.4);
+}
+
+.back-to-top i {
+    transition: all 0.3s ease;
+}
+
+.back-to-top:hover i {
+    transform: translateY(-3px);
+}
+
+/* Dark Mode Button */
+.dark-mode-btn {
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, #5e60ce 0%, #2b2d42 100%);
+    box-shadow: 0 4px 15px rgba(94, 96, 206, 0.3);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.dark-mode-btn:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 6px 20px rgba(94, 96, 206, 0.4);
+}
+
+.dark-mode-btn i {
+    transition: all 0.3s ease;
+}
+
+.dark-mode-btn:hover i {
+    transform: rotate(20deg) scale(1.1);
+}
+
+/* Chat button styles */
+.chat-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    z-index: 999;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.chat-btn:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+}
+
+.chat-btn i {
+    transition: transform 0.3s ease;
+}
+
+.chat-btn:hover i {
+    transform: scale(1.1);
+}
+
+/* Adjust position of other floating buttons */
+.back-to-top {
+    right: 30px;
+    bottom: 160px;
+}
+
+.dark-mode-btn {
+    right: 30px;
+    bottom: 90px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .floating-btn {
+        width: 45px;
+        height: 45px;
+        right: 20px;
+    }
+    
+    .dark-mode-btn {
+        bottom: 20px;
+    }
+
+    .chat-btn {
+        width: 50px;
+        height: 50px;
+        right: 20px;
+        bottom: 20px;
+        font-size: 1.3rem;
+    }
+    
+    .back-to-top {
+        right: 20px;
+        bottom: 140px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.1rem;
+    }
+    
+    .dark-mode-btn {
+        right: 20px;
+        bottom: 80px;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .floating-btn {
+        width: 40px;
+        height: 40px;
+        right: 15px;
+    }
+    
+    .dark-mode-btn {
+        bottom: 15px;
+    }
+}
