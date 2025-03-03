@@ -17,16 +17,67 @@
 
 .about-image {
     flex: 1;
-    border-radius: 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--box-shadow-lg);
+    border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.1); /* Added border for better definition */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added transition for hover effect */
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.about-image::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -10%;
+    width: 200px;
+    height: 200px;
+    background: var(--primary-gradient);
+    opacity: 0.1;
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.about-image::after {
+    content: '';
+    position: absolute;
+    bottom: -5%;
+    left: -5%;
+    width: 120px;
+    height: 120px;
+    background: var(--primary-gradient);
+    opacity: 0.1;
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.about-image img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--border-radius);
+    transition: transform 0.5s ease;
+    position: relative;
+    z-index: 1;
 }
 
 .about-image:hover {
-    transform: translateY(-5px); /* Slight lift on hover */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-xl);
+}
+
+.about-image:hover img {
+    transform: scale(1.02);
+}
+
+/* Ensure image has rounded corners even on hover */
+.rounded-image {
+    border-radius: var(--border-radius);
 }
 
 @media (max-width: 992px) {

@@ -98,8 +98,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close mobile menu when clicking a nav link
     const navItems = document.querySelectorAll('.nav-links a');
     navItems.forEach(item => {
-        item.addEventListener('click', function() {
+        item.addEventListener('click', function(e) {
+            // Close mobile navigation
             navLinks.classList.remove('active');
+            
+            // Remove active class from all navigation links
+            navItems.forEach(link => link.classList.remove('active'));
+            
+            // Add active class to clicked link
+            this.classList.add('active');
         });
     });
     
@@ -405,16 +412,30 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add active class to nav items based on scroll position
     function updateActiveNavLink() {
+        // Only update active links based on scroll if user isn't actively clicking navigation
+        if (window.navClickInProgress) return;
+        
         const sections = document.querySelectorAll('section[id]');
         const scrollPosition = window.scrollY + 100;
         
+        // Remove active class from all nav links first
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        // If we're near the top of the page, activate the home link
+        if (scrollPosition < 300) {
+            document.querySelector('.nav-links a[href="#home"]')?.classList.add('active');
+            return;
+        }
+        
+        // Otherwise check which section we're in
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
             const sectionId = section.getAttribute('id');
             
             if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                document.querySelector('.nav-links a.active')?.classList.remove('active');
                 document.querySelector(`.nav-links a[href="#${sectionId}"]`)?.classList.add('active');
             }
         });

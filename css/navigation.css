@@ -38,6 +38,10 @@ nav {
     font-weight: 600;
     position: relative;
     padding: 8px;
+    display: inline-flex; /* Ensure consistent display */
+    align-items: center; /* Vertically align content */
+    transition: color 0.3s ease; /* Smooth transition for color changes */
+    height: 100%; /* Consistent height */
 }
 
 .nav-links a:hover,
@@ -45,15 +49,29 @@ nav {
     color: var(--primary-color);
 }
 
-.nav-links a.active:after {
+/* Make the active indicator consistent for all links */
+.nav-links a:after {
     content: '';
     position: absolute;
-    width: 30px;
+    width: 0; /* Start with 0 width */
     height: 2px;
     background-color: var(--primary-color);
     bottom: -5px;
     left: 50%;
     transform: translateX(-50%);
+    transition: width 0.3s ease; /* Smooth transition for width change */
+    opacity: 0; /* Start invisible */
+}
+
+/* Show indicator for active and hover states */
+.nav-links a.active:after {
+    width: 30px; /* Final width for active state */
+    opacity: 1;
+}
+
+.nav-links a:hover:after {
+    width: 20px; /* Slightly smaller width for hover state */
+    opacity: 0.7;
 }
 
 .nav-toggle {
