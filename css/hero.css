@@ -282,7 +282,7 @@ body.dark-mode .hero-stats .stat-item:hover {
     
     .hero-stats .stat-item {
         width: auto; /* Allow content to determine width */
-        max-width: none;
+        max-width: 88%; /* Limit width to avoid being too wide */
         justify-content: center;
         padding: 4px 12px; /* Reduced padding */
         font-size: 0.9rem;
@@ -321,9 +321,10 @@ body.dark-mode .hero-stats .stat-item:hover {
     }
     
     .hero-stats .stat-item {
-        width: 100%;
-        max-width: 300px;
+        width: auto; /* Override the 100% width setting */
+        max-width: 250px; /* More appropriate max-width */
         justify-content: center;
+        white-space: nowrap; /* Keep text on one line */
     }
 }
 
@@ -345,6 +346,7 @@ body.dark-mode .hero-stats .stat-item:hover {
         font-size: 0.8rem; /* Slightly smaller font */
         padding: 2px 10px; /* Even less padding */
         min-height: 28px; /* Shorter minimum height */
+        max-width: 200px; /* Further reduce max width on smallest screens */
     }
     
     .hero-stats .stat-item i {
@@ -363,5 +365,7 @@ body.dark-mode .hero-stats .stat-item:hover {
     .hero-stats .stat-item {
         min-height: 32px; /* Smaller than buttons */
         padding: clamp(4px, 1vw, 8px) clamp(10px, 2vw, 15px);
+        max-width: 230px; /* Control width for touch devices */
+        box-sizing: border-box; /* Ensure padding is included in width */
     }
 }

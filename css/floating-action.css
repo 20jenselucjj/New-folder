@@ -1,8 +1,8 @@
 /* Floating Buttons */
 .floating-btn {
     position: fixed;
-    width: clamp(40px, 8vw, 50px);
-    height: clamp(40px, 8vw, 50px);
+    width: clamp(45px, 10vw, 55px); /* Increased size for better touch targets */
+    height: clamp(45px, 10vw, 55px); /* Increased size for better touch targets */
     border-radius: 50%;
     color: white;
     display: flex;
@@ -21,21 +21,23 @@
 /* Stacked layout for floating buttons - ensure consistent spacing */
 .back-to-top {
     right: 20px;
-    bottom: clamp(140px, 20vh, 160px);
+    bottom: clamp(160px, 22vh, 180px); /* Increased spacing between buttons */
     z-index: 99; /* Ensure consistent z-index */
 }
 
 .dark-mode-btn {
     right: 20px;
-    bottom: clamp(85px, 12vh, 95px); /* Adjusted for better spacing */
-    z-index: 99; /* Ensure consistent z-index */
+    bottom: clamp(95px, 14vh, 110px); /* Increased spacing from chat button */
+    z-index: 999; /* Match chat button z-index for consistency */
+    width: clamp(50px, 12vw, 60px); /* Same size as chat button */
+    height: clamp(50px, 12vw, 60px); /* Same size as chat button */
 }
 
 .chat-btn {
     right: 20px;
     bottom: 20px;
-    width: clamp(40px, 8vw, 50px); /* Updated size to match dark mode button */
-    height: clamp(40px, 8vw, 50px); /* Updated size to match dark mode button */
+    width: clamp(50px, 12vw, 60px); /* Larger size for better touch targets */
+    height: clamp(50px, 12vw, 60px); /* Larger size for better touch targets */
     z-index: 999; /* Higher z-index to ensure it's above other buttons */
 }
 
@@ -86,7 +88,7 @@
 
 /* Icon animations */
 .floating-btn i {
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    font-size: clamp(1.2rem, 3vw, 1.7rem); /* Larger icon size for better visibility */
     transition: transform 0.3s ease;
 }
 
@@ -109,75 +111,74 @@
 /* Mobile optimizations */
 @media (max-width: 768px) {
     .floating-btn {
-        right: 15px;
-    }
-    
-    .back-to-top {
-        bottom: clamp(120px, 18vh, 135px); /* Better spacing for mobile */
-    }
-    
-    .dark-mode-btn {
-        bottom: clamp(70px, 10vh, 75px); /* Better spacing for mobile */
-    }
-    
-    .chat-btn {
-        bottom: 15px;
-    }
-}
-
-/* Improved mobile positioning for floating buttons */
-@media (max-width: 768px) {
-    .floating-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-        margin-bottom: 12px; /* Increased spacing between buttons */
+        width: 48px; /* Consistent minimum size for touch targets */
+        height: 48px;
+        margin-bottom: 16px; /* Increased spacing between buttons */
     }
     
     .dark-mode-btn {
-        bottom: 140px; /* Move higher up to avoid overlap */
+        bottom: 160px; /* Further apart for easier targeting */
+        width: 56px; /* Same size as chat button */
+        height: 56px;
     }
     
     .chat-btn {
-        bottom: 85px; /* Adjust position for better spacing */
+        bottom: 95px; /* Increased spacing */
+        width: 56px; /* Larger than other buttons */
+        height: 56px;
     }
     
     .back-to-top {
         bottom: 30px;
-        right: 20px; /* Slightly further from edge on mobile */
+        right: 20px;
+    }
+    
+    /* Add subtle pulse animation to draw attention */
+    .chat-btn {
+        animation: subtle-pulse 2s infinite alternate;
+    }
+    
+    @keyframes subtle-pulse {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.05); }
     }
 }
 
 @media (max-width: 576px) {
     .floating-btn {
-        right: 12px;
-        width: 40px;
-        height: 40px;
+        right: 15px;
+        width: 48px; /* Keep consistent size */
+        height: 48px;
     }
     
-    .chat-btn {
-        width: 50px;
-        height: 50px;
-        bottom: 12px;
-        right: 12px;
+    .chat-btn, .dark-mode-btn {
+        width: 56px; /* Keep larger */
+        height: 56px;
+        bottom: 15px;
+        right: 15px;
     }
     
     /* Ensure better spacing between buttons on small screens */
     .back-to-top {
-        bottom: 110px;
+        bottom: 135px;
     }
     
     .dark-mode-btn {
-        bottom: 62px;
+        bottom: 75px;
     }
 }
 
 /* Extra small screens */
 @media (max-width: 360px) {
     .floating-btn {
-        width: 36px; /* Slightly smaller on very small screens */
-        height: 36px;
-        right: 15px; /* Closer to edge on small screens */
+        width: 44px; /* Slightly larger for better usability */
+        height: 44px;
+        right: 12px; /* Closer to edge on small screens */
+    }
+    
+    .chat-btn, .dark-mode-btn {
+        width: 44px; /* Same size for both */
+        height: 44px;
     }
     
     .dark-mode-btn {
@@ -221,28 +222,35 @@
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
     .floating-btn {
-        min-width: 44px;
-        min-height: 44px;
+        min-width: 48px; /* Minimum recommended touch target size */
+        min-height: 48px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow for better visibility */
     }
     
     /* Add active state visual feedback for touch devices */
     .floating-btn:active {
-        transform: scale(0.95);
-        opacity: 0.9;
+        transform: scale(0.92); /* More pronounced feedback */
+        opacity: 0.85;
+    }
+    
+    /* Add floating effect to make buttons stand out more */
+    .chat-btn, .dark-mode-btn {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        border: 2px solid rgba(255, 255, 255, 0.2); /* Subtle border for better visibility */
     }
     
     /* Fix safe area issues on iPhone X+ */
     @supports (padding: max(0px)) {
         .floating-btn.chat-btn {
-            bottom: max(15px, env(safe-area-inset-bottom));
+            bottom: max(20px, env(safe-area-inset-bottom));
         }
         
         .floating-btn.dark-mode-btn {
-            bottom: max(70px, calc(env(safe-area-inset-bottom) + 55px));
+            bottom: max(80px, calc(env(safe-area-inset-bottom) + 60px));
         }
         
         .floating-btn.back-to-top {
-            bottom: max(125px, calc(env(safe-area-inset-bottom) + 110px));
+            bottom: max(140px, calc(env(safe-area-inset-bottom) + 120px));
         }
     }
 }
