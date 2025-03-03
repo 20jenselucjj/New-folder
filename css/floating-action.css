@@ -11,7 +11,9 @@
     cursor: pointer;
     box-shadow: var(--box-shadow-md);
     transition: var(--transition);
-    border: var(--border-width) solid transparent;
+    /* Removed border for floating buttons */
+    /* border: var(--border-width) solid transparent; */
+    border: none;
     z-index: 99;
     -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
 }
@@ -32,8 +34,8 @@
 .chat-btn {
     right: 20px;
     bottom: 20px;
-    width: clamp(45px, 10vw, 60px);
-    height: clamp(45px, 10vw, 60px);
+    width: clamp(40px, 8vw, 50px); /* Updated size to match dark mode button */
+    height: clamp(40px, 8vw, 50px); /* Updated size to match dark mode button */
     z-index: 999; /* Higher z-index to ensure it's above other buttons */
 }
 

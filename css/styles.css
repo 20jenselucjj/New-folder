@@ -124,5 +124,14 @@
   transition: width 0.2s ease;
 }
 
+/* Example adjustments when in mobile layout */
+body.mobile-layout {
+    /* Additional mobile tweaks */
+}
+
+body.mobile-layout .hero {
+    padding: 50px 10px;
+}
+
 /* Import the necessary CSS files here */
 /* The rest of the styles are in their respective files */

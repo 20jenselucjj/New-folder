@@ -4,10 +4,11 @@
     bottom: clamp(70px, 12vh, 90px);
     right: clamp(15px, 3vw, 30px);
     width: min(350px, calc(100% - 30px));
-    height: min(450px, 80vh);
+    height: min(450px, 50vh);
     background-color: white;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Stronger shadow for better visibility */
+    box-shadow: 0 0 0 var(--border-width) var(--border-color-light),
+                0 10px 30px rgba(0, 0, 0, 0.3); /* Combined border effect with shadow */
     display: flex;
     flex-direction: column;
     z-index: 998; /* Just below the chat button but above other elements */
@@ -19,7 +20,9 @@
     pointer-events: none; /* Initially not clickable */
     isolation: isolate; /* Create new stacking context */
     will-change: transform, opacity; /* Optimize performance */
-    border: var(--border-width) solid var(--border-color-light);
+    border: none; /* Remove border that might cause misalignment */
+    padding: 0; /* Remove any padding */
+    box-sizing: border-box; /* Ensure border is included in width calculation */
 }
 
 .chat-widget.active {
@@ -36,6 +39,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid var(--border-color-light);
+    border-radius: 16px 16px 0 0; /* Match the top border-radius of the chat-widget */
+    margin: 0; /* Remove any margin */
+    width: 100%; /* Ensure header takes full width of parent */
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    box-sizing: border-box; /* Ensure padding and border don't affect width */
 }
 
 .chat-header h4 {
@@ -356,4 +367,9 @@ body.dark-mode .message-time {
             padding-bottom: env(safe-area-inset-bottom);
         }
     }
+}
+
+/* Make sure all elements within the chat use border-box for consistent sizing */
+.chat-widget * {
+    box-sizing: border-box;
 }

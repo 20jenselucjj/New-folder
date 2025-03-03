@@ -53,4 +53,15 @@ function checkIfInView() {
 window.addEventListener('scroll', checkIfInView);
 checkIfInView(); // Initial check
 
+// Adjust layout based on screen size for responsive behaviors
+function adjustLayout() {
+    if (window.innerWidth <= 768) {
+        document.body.classList.add('mobile-layout');
+    } else {
+        document.body.classList.remove('mobile-layout');
+    }
+}
+window.addEventListener('resize', adjustLayout);
+adjustLayout();  // run on initial load
+
 // ...existing code below...
