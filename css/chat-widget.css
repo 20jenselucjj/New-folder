@@ -1,16 +1,16 @@
 /* Chat Widget */
 .chat-widget {
     position: fixed;
-    bottom: 90px; /* Position just above the chat button */
-    right: 30px;
-    width: 350px;
-    height: 450px;
+    bottom: clamp(70px, 12vh, 90px);
+    right: clamp(15px, 3vw, 30px);
+    width: min(350px, calc(100% - 30px));
+    height: min(450px, 80vh);
     background-color: white;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Stronger shadow for better visibility */
     display: flex;
     flex-direction: column;
-    z-index: 999999; /* Highest z-index to ensure it's above everything */
+    z-index: 998; /* Just below the chat button but above other elements */
     overflow: hidden;
     opacity: 0;
     transform: translateY(20px) scale(0.95);
@@ -32,7 +32,7 @@
 .chat-header {
     background: var(--primary-gradient);
     color: white;
-    padding: 15px 20px;
+    padding: clamp(12px, 2vw, 15px) clamp(15px, 3vw, 20px);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,10 +40,10 @@
 
 .chat-header h4 {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 2.5vw, 1.1rem);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: clamp(6px, 1.5vw, 8px);
 }
 
 .chat-header h4 i {
@@ -70,22 +70,24 @@
 
 .chat-messages {
     flex-grow: 1;
-    padding: 20px;
+    padding: clamp(15px, 3vw, 20px);
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: clamp(10px, 2vw, 15px);
     background-color: #f5f8fb;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
 .message {
-    max-width: 80%;
-    padding: 12px 15px;
+    max-width: 85%;
+    padding: clamp(8px, 2vw, 12px) clamp(12px, 2.5vw, 15px);
     border-radius: 18px;
     position: relative;
     animation: message-pop-in 0.3s forwards;
     word-wrap: break-word;
     border: var(--border-width) solid rgba(0, 0, 0, 0.05);
+    font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
 .message-received {
@@ -116,21 +118,21 @@
 }
 
 .chat-input {
-    padding: 15px;
+    padding: clamp(10px, 2vw, 15px);
     border-top: 1px solid #eee;
     display: flex;
-    gap: 10px;
+    gap: clamp(8px, 1.5vw, 10px);
     background-color: white;
 }
 
 .chat-input input {
     flex-grow: 1;
-    padding: 12px 15px;
+    padding: clamp(8px, 2vw, 12px) clamp(12px, 2.5vw, 15px);
     border: var(--border-width) solid var(--border-color-light);
     border-radius: 20px;
     outline: none;
     transition: border-color 0.3s ease;
-    font-size: 0.95rem;
+    font-size: clamp(0.9rem, 2vw, 0.95rem);
     background-color: #f8f9fa; /* Slight background color for better visibility */
 }
 
@@ -144,13 +146,15 @@
     color: white;
     border: none;
     border-radius: 50%;
-    width: 42px;
-    height: 42px;
+    width: clamp(36px, 8vw, 42px);
+    height: clamp(36px, 8vw, 42px);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
+    min-width: 44px; /* Minimum tap target size */
+    min-height: 44px; /* Minimum tap target size */
 }
 
 .chat-input button:hover {
@@ -189,7 +193,7 @@
     }
 }
 
-/* Responsive adjustments */
+/* Enhanced responsive adjustments */
 @media (max-width: 576px) {
     .chat-widget {
         bottom: 70px; /* Position above mobile chat button */
@@ -197,6 +201,67 @@
         width: calc(100% - 30px); /* Full width minus margins */
         max-width: 350px; /* But not too wide */
         height: 400px; /* Slightly shorter on mobile */
+        border-radius: 12px; /* Smaller radius on mobile */
+    }
+    
+    .chat-header {
+        border-radius: 12px 12px 0 0; /* Match widget radius */
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-widget {
+        width: calc(100% - 20px);
+        max-width: none;
+        right: 10px;
+        height: min(400px, 70vh);
+        bottom: 65px;
+    }
+
+    .chat-header {
+        padding: 10px 15px;
+    }
+
+    .chat-header h4 {
+        font-size: 1rem;
+    }
+
+    .chat-messages {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .message {
+        max-width: 88%; /* Slightly wider on very small screens */
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .message p {
+        margin-bottom: 3px;
+    }
+}
+
+@media (max-width: 360px) {
+    .chat-widget {
+        bottom: 60px;
+        right: 8px;
+        width: calc(100% - 16px);
+        height: 350px;
+    }
+
+    .chat-input {
+        padding: 8px;
+    }
+
+    .chat-input input {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    .chat-input button {
+        width: 36px;
+        height: 36px;
     }
 }
 
@@ -231,4 +296,64 @@ body.dark-mode .chat-input input {
 
 body.dark-mode .message-time {
     color: rgba(255, 255, 255, 0.7);
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .chat-input input {
+        font-size: 16px; /* Prevent iOS zoom */
+    }
+    
+    .chat-input button {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    .chat-close {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 10px;
+    }
+    
+    .chat-widget.touch-device .chat-messages {
+        padding-bottom: 20px; /* Extra padding for better scrolling with touch */
+    }
+}
+
+/* Mobile optimizations - fullscreen on portrait */
+@media (max-height: 600px) {
+    .chat-widget {
+        height: 85vh;
+    }
+}
+
+/* Keyboard visibility handling for mobile */
+@media (max-width: 768px) {
+    .chat-widget.keyboard-visible {
+        bottom: 0;
+        height: 100vh;
+        width: 100%;
+        right: 0;
+        left: 0;
+        border-radius: 0;
+        position: fixed;
+    }
+    
+    .chat-widget.keyboard-visible .chat-header {
+        border-radius: 0;
+    }
+    
+    /* Ensure messages are visible when keyboard is open */
+    .chat-widget.keyboard-visible .chat-messages {
+        max-height: calc(100vh - 120px);
+    }
+    
+    /* Safe area support for notched phones */
+    @supports (padding: max(0px)) {
+        .chat-widget.keyboard-visible {
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    }
 }

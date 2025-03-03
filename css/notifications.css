@@ -32,11 +32,36 @@
     background-color: var(--primary-color);
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
     .notification {
         left: 20px;
         right: 20px;
+        bottom: 90px; /* Adjusted to prevent overlap with floating buttons */
+        padding: 12px 20px;
+        font-size: 0.95rem;
         max-width: unset;
         text-align: center;
+        transform: translateY(30px);
+    }
+}
+
+@media (max-width: 576px) {
+    .notification {
+        left: 15px;
+        right: 15px;
+        bottom: 80px;
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        border-radius: 6px;
+    }
+}
+
+@media (max-width: 360px) {
+    .notification {
+        left: 10px;
+        right: 10px;
+        bottom: 75px;
+        padding: 8px 12px;
+        font-size: 0.85rem;
     }
 }

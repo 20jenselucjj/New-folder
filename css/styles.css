@@ -19,3 +19,110 @@
 @import url("notifications.css");
 @import url("floating-action.css");
 @import url("scroll-progress.css");
+
+/* Mobile-first responsive approach */
+:root {
+  /* Base variables from base.css */
+  --primary-color: #4361ee;
+  --primary-gradient: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+  --secondary-color: #6c757d;
+  --dark-color: #1e293b;
+  --light-color: #f8f9fa;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --accent-color: #4cc9f0;
+  --body-font: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --heading-font: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --box-shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --box-shadow-md: 0 8px 15px rgba(0, 0, 0, 0.1);
+  --box-shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --border-color-light: rgba(0, 0, 0, 0.25);
+  --border-color-dark: rgba(255, 255, 255, 0.15);
+  --border-width: 2px;
+  --border-radius: 8px;
+  
+  /* Improved mobile responsive breakpoints */
+  --breakpoint-xs: 360px;
+  --breakpoint-sm: 576px; 
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --container-padding: 20px;
+  
+  /* Mobile-specific variables */
+  --header-height: 60px;
+  --button-min-height: 44px; /* For touch targets */
+  --mobile-spacing: 15px;
+}
+
+/* Improved mobile optimizations */
+@media (max-width: 576px) {
+  :root {
+    --container-padding: 15px;
+    --mobile-spacing: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  :root {
+    --container-padding: 10px;
+    --mobile-spacing: 8px;
+  }
+}
+
+/* Enhanced touch targets for mobile devices */
+@media (hover: none) and (pointer: coarse) {
+  button, 
+  a.btn, 
+  input[type="submit"],
+  .nav-links a,
+  .feature-card,
+  .pricing-card,
+  .info-item,
+  .faq-question {
+    min-height: var(--button-min-height);
+    touch-action: manipulation;
+  }
+  
+  /* Prevent zoom on input focus for iOS */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Safe area support for notched phones */
+@supports (padding: max(0px)) {
+  .container, 
+  .floating-btn,
+  .chat-widget,
+  .footer {
+    padding-left: max(var(--container-padding), env(safe-area-inset-left));
+    padding-right: max(var(--container-padding), env(safe-area-inset-right));
+  }
+  
+  .cookie-banner {
+    padding-bottom: max(var(--mobile-spacing), env(safe-area-inset-bottom));
+  }
+}
+
+/* Scroll progress indicator */
+.scroll-progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 1001;
+}
+
+.scroll-progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--primary-gradient);
+  transition: width 0.2s ease;
+}
+
+/* Import the necessary CSS files here */
+/* The rest of the styles are in their respective files */

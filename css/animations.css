@@ -110,3 +110,77 @@
 .info-item:hover .info-icon {
     animation: wave 1s ease;
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    /* Reduce animation intensity for better performance */
+    .feature-icon, .info-icon {
+        animation: float 4s ease-in-out infinite;
+        animation-play-state: paused;
+    }
+    
+    /* Only play animation on hover for better performance */
+    .feature-icon:hover, .info-icon:hover {
+        animation-play-state: running;
+    }
+    
+    /* Optimize transforms for mobile */
+    .reveal {
+        will-change: transform, opacity;
+    }
+    
+    /* Reduce transition durations for snappier feel */
+    .reveal {
+        transition: all 0.6s ease;
+    }
+    
+    /* Adjust reveal distances for smaller screens */
+    .reveal-left {
+        transform: translateX(-30px);
+    }
+    
+    .reveal-right {
+        transform: translateX(30px);
+    }
+    
+    .reveal-up {
+        transform: translateY(30px);
+    }
+}
+
+/* Further optimizations for smaller devices */
+@media (max-width: 576px) {
+    .reveal {
+        transition: all 0.5s ease;
+    }
+    
+    /* Reduce movement distance for comfort */
+    .reveal-left {
+        transform: translateX(-20px);
+    }
+    
+    .reveal-right {
+        transform: translateX(20px);
+    }
+    
+    .reveal-up {
+        transform: translateY(20px);
+    }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .feature-icon,
+    .info-icon,
+    .reveal,
+    .btn-primary:hover,
+    .cta-icon {
+        animation: none !important;
+        transition: opacity 0.3s ease !important;
+        transform: none !important;
+    }
+    
+    .reveal.active {
+        opacity: 1;
+    }
+}

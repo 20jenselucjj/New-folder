@@ -1,145 +1,167 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Chat widget elements
-    const chatButton = document.getElementById('chatButton');
     const chatWidget = document.getElementById('chatWidget');
-    const closeChat = document.getElementById('closeChat');
+    const chatButton = document.getElementById('chatButton');
     const chatMessages = document.getElementById('chatMessages');
+    const closeChat = document.getElementById('closeChat');
     const messageInput = document.getElementById('messageInput');
     const sendMessage = document.getElementById('sendMessage');
 
-    // Predefined responses for the demo chatbot
-    const botResponses = {
-        greeting: ["Hi there! 👋", "Hello! How can I help you today?", "Welcome! What brings you here today?"],
-        default: ["How can I help you with that?", "Tell me more about what you're looking for.", "Interesting! Can you provide more details?"],
-        thanks: ["You're welcome!", "Glad I could help!", "My pleasure!"],
-        pricing: ["Our pricing plans start at $19/month for basic features. Would you like more details about our packages?"],
-        features: ["Our platform offers AI-powered responses, live chat integration, chatbot builder, analytics, and multi-channel support. Which feature would you like to know more about?"],
-        support: ["Our support team is available 24/7. You can reach us at support@example.com or through this chat."],
-        goodbye: ["Goodbye! Have a great day!", "Thanks for chatting with us. Come back anytime!", "Take care! Feel free to return if you have more questions."]
-    };
-
-    // Initial messages
-    const initialMessages = [
-        {text: "Hello! 👋 Welcome to BrandName support.", sender: "received", delay: 500},
-        {text: "How can I assist you today?", sender: "received", delay: 1500}
-    ];
-
-    // Toggle chat widget visibility
-    function toggleChat() {
-        chatWidget.classList.toggle('active');
-        if (chatWidget.classList.contains('active')) {
-            messageInput.focus();
-        }
-    }
-
-    // Add event listeners
-    chatButton.addEventListener('click', toggleChat);
-    closeChat.addEventListener('click', toggleChat);
-
-    // Function to add a message to the chat
-    function addMessage(text, type, delay = 0) {
-        setTimeout(() => {
-            const message = document.createElement('div');
-            message.className = `message message-${type}`;
-            
-            const messageContent = document.createElement('p');
-            messageContent.textContent = text;
-            message.appendChild(messageContent);
-            
-            const messageTime = document.createElement('span');
-            messageTime.className = 'message-time';
-            messageTime.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            message.appendChild(messageTime);
-            
-            chatMessages.appendChild(message);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }, delay);
-    }
-
-    // Show typing indicator
-    function showTypingIndicator(delay = 1000) {
-        const typing = document.createElement('div');
-        typing.className = 'message message-received typing-message';
-        typing.innerHTML = `
-            <div class="typing-indicator">
-                <span>.</span>
-                <span>.</span>
-                <span>.</span>
-            </div>
-        `;
-        chatMessages.appendChild(typing);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-        
-        return typing;
-    }
-
-    // Get bot response based on user input
-    function getBotResponse(text) {
-        text = text.toLowerCase();
-        
-        if (text.includes('hello') || text.includes('hi') || text.includes('hey')) {
-            return botResponses.greeting[Math.floor(Math.random() * botResponses.greeting.length)];
-        } else if (text.includes('thank')) {
-            return botResponses.thanks[Math.floor(Math.random() * botResponses.thanks.length)];
-        } else if (text.includes('price') || text.includes('cost') || text.includes('plan')) {
-            return botResponses.pricing[0];
-        } else if (text.includes('feature') || text.includes('what') || text.includes('can')) {
-            return botResponses.features[0];
-        } else if (text.includes('support') || text.includes('help') || text.includes('contact')) {
-            return botResponses.support[0];
-        } else if (text.includes('bye') || text.includes('goodbye')) {
-            return botResponses.goodbye[Math.floor(Math.random() * botResponses.goodbye.length)];
-        } else {
-            return botResponses.default[Math.floor(Math.random() * botResponses.default.length)];
-        }
-    }
-
-    // Send user message
-    function sendUserMessage() {
-        const text = messageInput.value.trim();
-        if (text === '') return;
-        
-        // Add user message
-        addMessage(text, 'sent');
-        messageInput.value = '';
-        
-        // Show typing indicator
-        const typingIndicator = showTypingIndicator();
-        
-        // Remove typing indicator and add bot response after delay
-        setTimeout(() => {
-            typingIndicator.remove();
-            addMessage(getBotResponse(text), 'received');
-        }, Math.random() * 1000 + 1500); // Random delay between 1.5-2.5 seconds
-    }
-
-    // Event listeners for sending messages
-    sendMessage.addEventListener('click', sendUserMessage);
-    messageInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            sendUserMessage();
-        }
-    });
-
-    // Load initial messages with delays
-    initialMessages.forEach(msg => {
-        addMessage(msg.text, msg.sender, msg.delay);
-    });
+    // Get chat state from localStorage
+    const chatState = localStorage.getItem('chatOpen');
     
-    // Store chat state in local storage
-    function saveChatState(isOpen) {
-        localStorage.setItem('chatWidgetOpen', isOpen);
-    }
-
-    // Restore chat state
-    const chatState = localStorage.getItem('chatWidgetOpen');
+    // Initialize chat state based on localStorage
     if (chatState === 'true') {
         chatWidget.classList.add('active');
+        chatButton.style.zIndex = "1000";
     }
 
     // Update chat state when toggled
     chatButton.addEventListener('click', () => {
         const isOpen = chatWidget.classList.contains('active');
-        saveChatState(isOpen);
+        saveChatState(!isOpen);
     });
+    
+    // Toggle chat widget
+    chatButton.addEventListener('click', () => {
+        chatWidget.classList.toggle('active');
+        
+        // For mobile layout management
+        if (chatWidget.classList.contains('active')) {
+            chatButton.style.zIndex = "1000"; // Lower z-index when chat is open
+            // Scroll to bottom of messages
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 100);
+        } else {
+            chatButton.style.zIndex = "1001"; // Higher z-index when chat is closed
+        }
+    });
+    
+    // Close chat
+    closeChat.addEventListener('click', () => {
+        chatWidget.classList.remove('active');
+        chatButton.style.zIndex = "1001";
+        saveChatState(false);
+    });
+    
+    // Send message (example function)
+    function sendChatMessage() {
+        const message = messageInput.value.trim();
+        if (!message) return;
+        
+        // Add user message
+        const userMessage = createMessage(message, 'sent');
+        chatMessages.appendChild(userMessage);
+        
+        // Clear input
+        messageInput.value = '';
+        
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Simulated response (would be replaced by actual backend)
+        setTimeout(() => {
+            // Show typing indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'message message-received';
+            typingIndicator.innerHTML = '<div class="typing-indicator"><span>.</span><span>.</span><span>.</span></div>';
+            chatMessages.appendChild(typingIndicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Remove typing indicator and show response after delay
+            setTimeout(() => {
+                chatMessages.removeChild(typingIndicator);
+                const responseText = getAutomaticResponse(message);
+                const botMessage = createMessage(responseText, 'received');
+                chatMessages.appendChild(botMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1500);
+        }, 500);
+    }
+    
+    // Create message element
+    function createMessage(text, type) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message message-${type}`;
+        
+        const messageText = document.createElement('p');
+        messageText.textContent = text;
+        messageDiv.appendChild(messageText);
+        
+        const timestamp = document.createElement('span');
+        timestamp.className = 'message-time';
+        timestamp.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        messageDiv.appendChild(timestamp);
+        
+        return messageDiv;
+    }
+    
+    // Simple automatic responses
+    function getAutomaticResponse(message) {
+        message = message.toLowerCase();
+        
+        if (message.includes('hello') || message.includes('hi')) {
+            return "Hello! How can I help you today?";
+        } else if (message.includes('price') || message.includes('cost') || message.includes('pricing')) {
+            return "Our pricing plans start at $29/month. You can check all plan details in our Pricing section.";
+        } else if (message.includes('contact') || message.includes('support')) {
+            return "You can reach our support team at support@example.com or call us at +1 234 567 8900.";
+        } else {
+            return "Thanks for your message. Our team will get back to you soon!";
+        }
+    }
+    
+    // Send message on button click
+    sendMessage.addEventListener('click', sendChatMessage);
+    
+    // Send message on Enter key
+    messageInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendChatMessage();
+        }
+    });
+    
+    // Add basic greeting message
+    setTimeout(() => {
+        if (chatMessages.children.length === 0) {
+            const welcomeMessage = createMessage("👋 Hi there! How can we help you today?", 'received');
+            chatMessages.appendChild(welcomeMessage);
+        }
+    }, 1000);
+    
+    // Handle keyboard visibility on mobile
+    messageInput.addEventListener('focus', () => {
+        if (window.innerWidth <= 768) {
+            chatWidget.classList.add('keyboard-visible');
+        }
+    });
+    
+    messageInput.addEventListener('blur', () => {
+        chatWidget.classList.remove('keyboard-visible');
+    });
+    
+    // Detect touch devices
+    function isTouchDevice() {
+        return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    }
+    
+    // Apply specific adjustments for touch devices
+    if (isTouchDevice()) {
+        chatWidget.classList.add('touch-device');
+    }
+    
+    // Mobile orientation change handling
+    window.addEventListener('resize', () => {
+        // Adjust for orientation changes
+        if (chatWidget.classList.contains('active')) {
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 100);
+        }
+    });
+    
+    // Save chat state to localStorage
+    function saveChatState(isOpen) {
+        localStorage.setItem('chatOpen', isOpen);
+    }
 });

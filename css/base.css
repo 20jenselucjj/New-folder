@@ -19,6 +19,14 @@
     --border-color-dark: rgba(255, 255, 255, 0.15);
     --border-width: 2px;
     --border-radius: 8px;
+    
+    /* Adding responsive breakpoints as CSS variables */
+    --breakpoint-xs: 360px;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --container-padding: 20px;
 }
 
 * {
@@ -64,11 +72,70 @@ a {
     transition: all 0.3s ease;
 }
 
+/* Responsive Container */
 .container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 var(--container-padding);
+}
+
+@media (max-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+    
+    :root {
+        --container-padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+    
+    .section-header h2 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+    
+    :root {
+        --container-padding: 12px;
+    }
+    
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .section-header p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 360px) {
+    :root {
+        --container-padding: 10px;
+    }
+    
+    html {
+        font-size: 14px; /* Slightly reduce base font size for very small screens */
+    }
+    
+    .section-header h2 {
+        font-size: 1.6rem;
+    }
 }
 
 .section-header {

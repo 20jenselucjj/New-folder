@@ -1,33 +1,43 @@
 /* Statistics Section */
 .statistics {
-    background-color: var(--primary-color);
-    padding: 80px 0;
+    padding: clamp(60px, 10vw, 80px) 0;
+    background: var(--primary-gradient);
+    position: relative;
+    overflow: hidden;
     color: white;
 }
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+    gap: clamp(20px, 4vw, 30px);
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
     text-align: center;
 }
 
 .stat-item {
-    padding: 20px;
+    padding: clamp(20px, 3vw, 30px);
     border: var(--border-width) solid rgba(255, 255, 255, 0.2);
     border-radius: var(--border-radius);
     background-color: rgba(255, 255, 255, 0.1);
-    transition: var(--transition);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 body.dark-mode .stat-item {
-    border-color: var(--border-color-dark);
     background-color: rgba(0, 0, 0, 0.2);
+    border-color: var(--border-color-dark);
 }
 
 .stat-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 body.dark-mode .stat-item:hover {
@@ -35,14 +45,35 @@ body.dark-mode .stat-item:hover {
 }
 
 .stat-number {
-    font-size: 3.5rem;
+    font-size: clamp(2rem, 6vw, 3.5rem);
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: clamp(5px, 1.5vw, 10px);
+    background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.stat-number.animate {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .stat-label {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
     font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+}
+
+.stat-label.animate {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Fix for the section header in statistics section */
@@ -53,4 +84,42 @@ body.dark-mode .stat-item:hover {
 
 body.dark-mode .statistics .section-header h2:after {
     background: rgba(255, 255, 255, 0.8); /* Even more visible in dark mode */
+}
+
+@media (hover: hover) {
+    .stat-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .stat-item:active {
+        transform: scale(0.98);
+    }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .stat-number {
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
+    }
+    
+    .stat-label {
+        font-size: clamp(0.9rem, 2vw, 1rem);
+    }
 }

@@ -1,15 +1,15 @@
 /* Cookie Consent Banner */
 .cookie-banner {
     position: fixed;
-    bottom: 0;
+    bottom: env(safe-area-inset-bottom, 0);
     left: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 0.85);
     color: white;
-    padding: 15px;
+    padding: clamp(12px, 2.5vw, 15px);
     z-index: 9998;
     transform: translateY(100%);
-    transition: transform 0.4s ease-in-out;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border-top: var(--border-width) solid var(--border-color-dark);
 }
 
@@ -18,19 +18,19 @@
 }
 
 .cookie-content {
-    max-width: 1200px;
+    max-width: min(1200px, 100%);
     margin: 0 auto;
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(200px, 1fr);
+    gap: clamp(15px, 3vw, 20px);
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
+    padding: 0 var(--container-padding);
 }
 
 .cookie-content p {
-    margin-bottom: 0;
-    flex: 3;
-    min-width: 280px;
+    margin: 0;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    line-height: 1.5;
 }
 
 .cookie-content a {
@@ -40,27 +40,113 @@
 
 .cookie-buttons {
     display: flex;
-    gap: 10px;
-    flex: 1;
+    gap: clamp(8px, 2vw, 10px);
     justify-content: flex-end;
-    min-width: 200px;
 }
 
 .cookie-buttons .btn {
-    padding: 8px 16px;
-    font-size: 0.9rem;
-    border: var(--border-width) solid transparent;
+    padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 16px);
+    font-size: clamp(0.85rem, 1.5vw, 0.9rem);
+    min-width: 100px;
+    text-align: center;
 }
 
+/* Enhanced mobile optimizations */
 @media (max-width: 768px) {
+    .cookie-banner {
+        padding: 12px var(--container-padding);
+        font-size: 0.95rem;
+    }
+    
     .cookie-content {
-        flex-direction: column;
+        grid-template-columns: 1fr;
         text-align: center;
+        gap: 15px;
     }
     
     .cookie-buttons {
-        width: 100%;
         justify-content: center;
+    }
+    
+    /* Avoid overlapping with floating buttons on mobile */
+    .cookie-banner.active + .chat-btn {
+        transform: translateY(-80px);
+    }
+    
+    .cookie-banner.active + .dark-mode-btn {
+        transform: translateY(-80px);
+    }
+    
+    .cookie-banner.active + .back-to-top {
+        transform: translateY(-80px);
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .cookie-buttons .btn {
+        min-height: 44px;
+        min-width: 120px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    
+    /* Ensure adequate spacing between buttons */
+    .cookie-buttons {
+        gap: 12px;
+    }
+}
+
+/* Small screen adjustments */
+@media (max-width: 576px) {
+    .cookie-banner {
+        padding: 10px var(--container-padding);
+        font-size: 0.9rem;
+    }
+    
+    .cookie-buttons {
+        gap: 10px;
+    }
+    
+    .cookie-buttons .btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        min-width: 90px;
+    }
+    
+    .cookie-content p {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .cookie-banner {
+        padding: 8px var(--container-padding);
+    }
+    
+    .cookie-content {
+        gap: 10px;
+    }
+    
+    .cookie-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .cookie-buttons .btn {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    .cookie-content p {
+        font-size: 0.8rem;
+    }
+}
+
+/* iPhone X+ Safe Area Support */
+@supports (padding: max(0px)) {
+    .cookie-banner {
+        padding-bottom: max(env(safe-area-inset-bottom), 12px);
     }
 }
 
