@@ -125,6 +125,29 @@
     }
 }
 
+/* Improved mobile positioning for floating buttons */
+@media (max-width: 768px) {
+    .floating-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        margin-bottom: 12px; /* Increased spacing between buttons */
+    }
+    
+    .dark-mode-btn {
+        bottom: 140px; /* Move higher up to avoid overlap */
+    }
+    
+    .chat-btn {
+        bottom: 85px; /* Adjust position for better spacing */
+    }
+    
+    .back-to-top {
+        bottom: 30px;
+        right: 20px; /* Slightly further from edge on mobile */
+    }
+}
+
 @media (max-width: 576px) {
     .floating-btn {
         right: 12px;
@@ -149,7 +172,18 @@
     }
 }
 
+/* Extra small screens */
 @media (max-width: 360px) {
+    .floating-btn {
+        width: 36px; /* Slightly smaller on very small screens */
+        height: 36px;
+        right: 15px; /* Closer to edge on small screens */
+    }
+    
+    .dark-mode-btn {
+        bottom: 130px; /* Further adjusted for smallest screens */
+    }
+    
     .floating-btn {
         right: 10px;
     }
@@ -165,6 +199,22 @@
     .chat-btn {
         bottom: 10px;
         right: 10px;
+    }
+}
+
+/* Ensure buttons don't overlap content areas on mobile */
+@media (max-width: 480px) {
+    .floating-btn:not(.active) {
+        opacity: 0.8; /* Slightly more transparent when not active */
+    }
+    
+    /* Space buttons further apart vertically */
+    .dark-mode-btn {
+        bottom: 150px;
+    }
+    
+    .chat-btn {
+        bottom: 95px;
     }
 }
 

@@ -173,3 +173,63 @@ body.dark-mode .statistics .section-header h2:after {
         text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 }
+
+/* Improved responsive design for statistics section */
+@media (max-width: 992px) {
+    .statistics {
+        padding: clamp(50px, 8vw, 70px) 0;
+    }
+    
+    .stat-number {
+        font-size: clamp(1.8rem, 5vw, 2.8rem);
+    }
+}
+
+/* Tablet and smaller screens */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .stat-item {
+        padding: clamp(15px, 2.5vw, 25px);
+    }
+}
+
+/* Mobile optimization improvements */
+@media (max-width: 576px) {
+    .statistics {
+        padding: clamp(40px, 7vw, 60px) 0;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        max-width: 100%; /* Use full container width */
+    }
+    
+    .stat-number {
+        font-size: clamp(1.6rem, 4.5vw, 2rem);
+        margin-bottom: 5px;
+    }
+    
+    .stat-label {
+        font-size: clamp(0.85rem, 2vw, 1rem);
+    }
+}
+
+/* Very small mobile screens */
+@media (max-width: 375px) {
+    .stats-grid {
+        grid-template-columns: 1fr; /* Single column for very small screens */
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    
+    .stat-item {
+        padding: 15px;
+    }
+}
