@@ -18,4 +18,39 @@ backToTopBtn.addEventListener('click', (e) => {
     });
 });
 
+// Statistics counter animation
+const statistics = document.querySelector('.statistics');
+const counters = document.querySelectorAll('.stat-number');
+let started = false;
+
+function startCounters() {
+    if (started) return;
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-count'));
+        const current = +counter.innerText;
+        const increment = target / 100;
+        if (current < target) {
+            counter.innerText = Math.ceil(current + increment);
+            setTimeout(startCounters, 30);
+        } else {
+            counter.innerText = target;
+        }
+    });
+    started = true;
+}
+
+function checkIfInView() {
+    if (statistics) {
+        const rect = statistics.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+            counters.forEach(counter => counter.classList.add('animate'));
+            startCounters();
+            window.removeEventListener('scroll', checkIfInView);
+        }
+    }
+}
+
+window.addEventListener('scroll', checkIfInView);
+checkIfInView(); // Initial check
+
 // ...existing code below...
