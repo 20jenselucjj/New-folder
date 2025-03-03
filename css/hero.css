@@ -281,11 +281,13 @@ body.dark-mode .hero-stats .stat-item:hover {
     }
     
     .hero-stats .stat-item {
-        width: 100%;
+        width: auto; /* Allow content to determine width */
+        max-width: none;
         justify-content: center;
-        padding: 10px 15px;
+        padding: 4px 12px; /* Reduced padding */
         font-size: 0.9rem;
-        max-width: 300px;
+        height: auto; /* Let content determine height */
+        min-height: 32px; /* Minimum height for touch targets */
     }
 
     .hero {
@@ -340,12 +342,13 @@ body.dark-mode .hero-stats .stat-item:hover {
     }
     
     .hero-stats .stat-item {
-        font-size: 0.85rem;
-        padding: 8px 12px;
+        font-size: 0.8rem; /* Slightly smaller font */
+        padding: 2px 10px; /* Even less padding */
+        min-height: 28px; /* Shorter minimum height */
     }
     
     .hero-stats .stat-item i {
-        font-size: 0.9rem;
+        font-size: 0.8rem; /* Match font size */
     }
 }
 
@@ -355,5 +358,10 @@ body.dark-mode .hero-stats .stat-item:hover {
     .hero-stats .stat-item {
         min-height: 44px;
         padding: clamp(10px, 3vw, 15px) clamp(15px, 4vw, 28px);
+    }
+    
+    .hero-stats .stat-item {
+        min-height: 32px; /* Smaller than buttons */
+        padding: clamp(4px, 1vw, 8px) clamp(10px, 2vw, 15px);
     }
 }
