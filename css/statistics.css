@@ -47,7 +47,7 @@ body.dark-mode .stat-item:hover {
 .stat-number {
     font-size: clamp(2rem, 6vw, 3.5rem);
     font-weight: 700;
-    margin-bottom: clamp(5px, 1.5vw, 10px);
+    margin-bottom: clamp(12px, 3vw, 20px); /* Increased bottom margin for more spacing */
     color: white; /* Plain white without glow */
     opacity: 0; /* Start hidden */
     transform: translateY(20px);
@@ -196,6 +196,10 @@ body.dark-mode .statistics .section-header h2:after {
     
     .stat-item {
         padding: clamp(15px, 2.5vw, 25px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 120px; /* Ensure minimum height for better spacing */
     }
 }
 
@@ -213,7 +217,7 @@ body.dark-mode .statistics .section-header h2:after {
     
     .stat-number {
         font-size: clamp(1.6rem, 4.5vw, 2rem);
-        margin-bottom: 5px;
+        margin-bottom: 15px; /* Increased margin for more spacing on mobile */
     }
     
     .stat-label {
@@ -230,6 +234,10 @@ body.dark-mode .statistics .section-header h2:after {
     }
     
     .stat-item {
-        padding: 15px;
+        padding: 15px 15px 20px; /* Added more padding at bottom */
+    }
+    
+    .stat-number {
+        margin-bottom: 12px; /* Increased margin even on smallest screens */
     }
 }
