@@ -1,21 +1,14 @@
 /* Testimonials Section */
 .testimonials {
-    padding: 120px 0;
-    background-color: white;
+    padding: 100px 0;
+    background-color: #f8f9fa;
     position: relative;
     overflow: hidden;
 }
 
-.testimonials:before {
-    content: '';
-    position: absolute;
-    top: -150px;
-    left: 0;
-    right: 0;
-    height: 300px;
-    background: #f8f9fa;
-    transform: skewY(-3deg);
-    z-index: 0;
+/* Remove the problematic white strip */
+.testimonials::before {
+    display: none;
 }
 
 .testimonial-slider {
@@ -36,13 +29,14 @@
     min-width: 100%;
     display: flex;
     align-items: center;
-    padding: 40px;
-    border-radius: 16px;
+    padding: 30px;
+    border-radius: var(--border-radius);
     background-color: white;
     box-shadow: var(--box-shadow-md);
-    margin-right: 20px;
+    margin: 15px;
     transition: var(--transition);
     position: relative;
+    border: var(--border-width) solid var(--border-color-light);
 }
 
 .testimonial-card:hover {
@@ -51,29 +45,37 @@
 }
 
 .testimonial-image {
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     overflow: hidden;
     margin-right: 40px;
+    margin-bottom: 20px;
     position: relative;
-    border: 5px solid white;
+    border: var(--border-width) solid var(--border-color-light);
     box-shadow: var(--box-shadow-sm);
+}
+
+.testimonial-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .quote-icon {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     background: var(--primary-gradient);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 1rem;
+    font-size: 14px;
+    border: var(--border-width) solid white;
 }
 
 .testimonial-content p {
@@ -121,7 +123,7 @@
     height: 50px;
     border-radius: 50%;
     background-color: white;
-    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Added border for better definition */
     color: var(--primary-color);
     cursor: pointer;
     display: flex;
@@ -135,6 +137,31 @@
     background: var(--primary-gradient);
     color: white;
     box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+    border-color: transparent; /* Hide border on hover due to gradient */
+}
+
+/* Dark mode compatibility */
+body.dark-mode .control-btn {
+    background-color: var(--dark-surface-2);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dark mode adjustments */
+body.dark-mode .testimonial-card {
+    background-color: var(--dark-surface-2);
+    border-color: var(--border-color-dark);
+}
+
+body.dark-mode .testimonial-image {
+    border-color: var(--border-color-dark);
+}
+
+body.dark-mode .quote-icon {
+    border-color: var(--dark-surface-2);
+}
+
+body.dark-mode .rating {
+    color: var(--primary-color);
 }
 
 @media (max-width: 768px) {

@@ -15,6 +15,10 @@
     --box-shadow-md: 0 8px 15px rgba(0, 0, 0, 0.1);
     --box-shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --border-color-light: rgba(0, 0, 0, 0.25);
+    --border-color-dark: rgba(255, 255, 255, 0.15);
+    --border-width: 2px;
+    --border-radius: 8px;
 }
 
 * {
@@ -84,11 +88,12 @@ a {
     content: '';
     position: absolute;
     width: 60px;
-    height: 3px;
+    height: var(--border-width);
     background: var(--primary-gradient);
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
+    border-radius: calc(var(--border-width) / 2);
 }
 
 .section-header p {

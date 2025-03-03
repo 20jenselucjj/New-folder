@@ -43,7 +43,7 @@
 
 .feature-card {
     padding: 40px 30px;
-    border-radius: 16px;
+    border-radius: var(--border-radius);
     background-color: white;
     box-shadow: var(--box-shadow-sm);
     transition: var(--transition);
@@ -51,7 +51,7 @@
     position: relative;
     overflow: hidden;
     z-index: 1;
-    border: 1px solid rgba(0,0,0,0.05);
+    border: var(--border-width) solid var(--border-color-light);
 }
 
 .feature-card:before {
@@ -113,4 +113,9 @@
     color: var(--secondary-color);
     font-size: 1rem;
     line-height: 1.6;
+}
+
+body.dark-mode .feature-card {
+    background-color: var(--dark-surface-2);
+    border-color: var(--border-color-dark);
 }

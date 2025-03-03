@@ -87,13 +87,13 @@ input:checked + .slider:before {
 }
 
 .pricing-card {
-    border-radius: 10px;
-    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-sm);
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: var(--transition);
     position: relative;
     background-color: white;
-    border: 1px solid #eee;
+    border: var(--border-width) solid var(--border-color-light);
 }
 
 .pricing-card:hover {
@@ -102,7 +102,7 @@ input:checked + .slider:before {
 }
 
 .pricing-card.popular {
-    border: 2px solid var(--primary-color);
+    border: calc(var(--border-width) * 1.5) solid var(--primary-color);
     transform: scale(1.05);
     z-index: 1;
 }
@@ -196,4 +196,43 @@ body.annual .amount.annually {
 
 .pricing-footer .btn {
     width: 100%;
+}
+
+/* Dark mode adjustments */
+body.dark-mode .pricing-card {
+    background-color: var(--dark-surface-2);
+    border-color: var(--border-color-dark);
+}
+
+body.dark-mode .price {
+    color: var(--dark-text);
+}
+
+body.dark-mode .price .period {
+    color: var(--dark-text-secondary);
+}
+
+body.dark-mode .pricing-card.popular {
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .pricing-header h3 {
+    color: var(--dark-text);
+}
+
+body.dark-mode .pricing-toggle span {
+    color: var(--dark-text);
+}
+
+body.dark-mode .pricing-toggle .discount {
+    background-color: rgba(67, 97, 238, 0.2);
+    color: var(--primary-color);
+}
+
+body.dark-mode .pricing-features ul li {
+    color: var(--dark-text);
+}
+
+body.dark-mode .pricing-features ul li i.fa-times {
+    color: var(--dark-text-secondary);
 }

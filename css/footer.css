@@ -52,17 +52,19 @@ footer {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #ffffff10;
+    background-color: rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    border: var(--border-width) solid var(--border-color-dark);
 }
 
 .social-links a:hover {
     background-color: var(--primary-color);
     transform: translateY(-3px);
+    border-color: var(--primary-color);
 }
 
 .footer-column ul li {
@@ -85,16 +87,18 @@ footer {
 .newsletter-form input {
     flex: 1;
     padding: 12px;
-    border: none;
-    border-radius: 5px 0 0 5px;
+    border: var(--border-width) solid var(--border-color-dark);
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
 }
 
 .newsletter-form button {
     padding: 12px 15px;
     background-color: var(--primary-color);
     color: white;
-    border: none;
-    border-radius: 0 5px 5px 0;
+    border: var(--border-width) solid var(--primary-color);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
     cursor: pointer;
 }
 
@@ -104,4 +108,16 @@ footer {
     text-align: center;
     font-size: 0.9rem;
     color: #c4c4c4;
+}
+
+/* Dark mode adjustments */
+body.dark-mode .newsletter-form input {
+    background-color: var(--dark-surface);
+    border-color: var(--border-color-dark);
+    color: var(--dark-text);
+}
+
+body.dark-mode .social-links a {
+    background-color: var(--dark-surface);
+    border-color: var(--border-color-dark);
 }

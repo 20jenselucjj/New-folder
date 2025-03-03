@@ -14,12 +14,13 @@
 
 .faq-item {
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-sm);
     overflow: hidden;
-    transition: all 0.3s ease;
-    opacity: 0; /* Start with 0 opacity for reveal animation */
-    transform: translateY(20px); /* Start below final position for reveal animation */
+    transition: var(--transition);
+    opacity: 0;
+    transform: translateY(20px);
+    border: var(--border-width) solid var(--border-color-light);
 }
 
 .faq-item.reveal-active,
@@ -87,4 +88,10 @@
     .faq-question h3 {
         font-size: 1rem;
     }
+}
+
+/* Dark mode compatibility */
+body.dark-mode .faq-item {
+    background-color: var(--dark-surface-2);
+    border-color: var(--border-color-dark);
 }

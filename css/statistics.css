@@ -14,6 +14,24 @@
 
 .stat-item {
     padding: 20px;
+    border: var(--border-width) solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius);
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+}
+
+body.dark-mode .stat-item {
+    border-color: var(--border-color-dark);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .stat-item:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Darker shadow for dark mode */
 }
 
 .stat-number {
@@ -25,4 +43,14 @@
 .stat-label {
     font-size: 1.2rem;
     font-weight: 600;
+}
+
+/* Fix for the section header in statistics section */
+.statistics .section-header h2:after {
+    background: rgba(255, 255, 255, 0.7); /* Changed from primary gradient to white with opacity for better readability */
+    height: 4px; /* Made slightly thicker */
+}
+
+body.dark-mode .statistics .section-header h2:after {
+    background: rgba(255, 255, 255, 0.8); /* Even more visible in dark mode */
 }

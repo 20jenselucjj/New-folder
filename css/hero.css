@@ -123,12 +123,14 @@
     border-radius: 30px;
     box-shadow: var(--box-shadow-sm);
     transition: var(--transition);
+    border: var(--border-width) solid var(--border-color-light);
 }
 
 .hero-stats .stat-item:hover {
     transform: translateY(-3px);
     box-shadow: var(--box-shadow-md);
     background-color: white;
+    border-color: var(--primary-color);
 }
 
 .hero-stats .stat-item i {
@@ -148,6 +150,18 @@
 
 .btn:hover i.fa-play-circle {
     animation: pulse 1.5s infinite;
+}
+
+/* Hero stats dark mode compatibility */
+body.dark-mode .hero-stats .stat-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-color-dark);
+    color: var(--dark-text-secondary);
+}
+
+body.dark-mode .hero-stats .stat-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-color);
 }
 
 @media (max-width: 992px) {
