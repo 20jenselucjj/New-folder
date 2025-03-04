@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // For mobile layout management
         if (chatWidget.classList.contains('active')) {
-            chatButton.style.zIndex = "1000"; // Lower z-index when chat is open
+            chatButton.style.zIndex = "997"; // Lower z-index when chat is open to prevent overlap
             // Scroll to bottom of messages
             setTimeout(() => {
                 chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -37,11 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Close chat
+    // Close chat and exit full screen mode
     closeChat.addEventListener('click', () => {
         chatWidget.classList.remove('active');
+        chatWidget.classList.remove('keyboard-visible'); // Exit full screen mode
         chatButton.style.zIndex = "1001";
+        document.body.style.overflow = ''; // Restore scrolling
         saveChatState(false);
+        messageInput.blur(); // Remove focus from input
     });
     
     // Send message (example function)
@@ -140,6 +143,58 @@ document.addEventListener('DOMContentLoaded', () => {
         chatWidget.classList.remove('keyboard-visible');
     });
     
+    // Enhanced mobile keyboard handling
+    messageInput.addEventListener('focus', () => {
+        if (window.innerWidth <= 768) {
+            chatWidget.classList.add('keyboard-visible');
+            
+            // Scroll to bottom when keyboard appears
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                // Try to bring the input into view on iOS
+                messageInput.scrollIntoView(false);
+            }, 300);
+        }
+    });
+
+    messageInput.addEventListener('blur', () => {
+        // Small delay to prevent jumpy animations
+        setTimeout(() => {
+            chatWidget.classList.remove('keyboard-visible');
+        }, 100);
+    });
+
+    // Fix for iOS virtual keyboard issues
+    function handleResize() {
+        const isKeyboardVisible = 
+            document.activeElement === messageInput && 
+            window.innerWidth <= 768;
+            
+        if (isKeyboardVisible && window.visualViewport) {
+            // Use Visual Viewport API for better keyboard handling
+            const viewportHeight = window.visualViewport.height;
+            const windowHeight = window.innerHeight;
+            
+            // If keyboard is likely visible (viewport significantly smaller than window)
+            if (viewportHeight < windowHeight * 0.8) {
+                chatWidget.classList.add('keyboard-visible');
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                // Adjust chat button to avoid overlap
+                chatButton.style.opacity = "0.7"; // Make chat button semi-transparent
+            } else {
+                chatWidget.classList.remove('keyboard-visible');
+                chatButton.style.opacity = "1"; // Restore chat button opacity
+            }
+        }
+    }
+
+    // Use Visual Viewport API if available for better keyboard detection
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', handleResize);
+    } else {
+        window.addEventListener('resize', handleResize);
+    }
+
     // Detect touch devices
     function isTouchDevice() {
         return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -164,4 +219,37 @@ document.addEventListener('DOMContentLoaded', () => {
     function saveChatState(isOpen) {
         localStorage.setItem('chatOpen', isOpen);
     }
+
+    // FULL SCREEN HANDLING - Only go full screen when input is focused on mobile
+    messageInput.addEventListener('focus', () => {
+        if (window.innerWidth <= 768) {
+            chatWidget.classList.add('keyboard-visible'); // Enter full screen mode
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            
+            // Scroll to bottom of chat
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 100);
+        }
+    });
+
+    messageInput.addEventListener('blur', () => {
+        // Small delay to prevent jumpy animations or accidental exits
+        // Only exit if user isn't actively interacting with the widget
+        if (!chatWidget.contains(document.activeElement)) {
+            setTimeout(() => {
+                chatWidget.classList.remove('keyboard-visible'); // Exit full screen mode
+                document.body.style.overflow = ''; // Restore background scrolling
+            }, 200);
+        }
+    });
+
+    // Handle ESC key to exit full screen mode
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && chatWidget.classList.contains('keyboard-visible')) {
+            chatWidget.classList.remove('keyboard-visible');
+            document.body.style.overflow = '';
+            messageInput.blur();
+        }
+    });
 });

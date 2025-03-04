@@ -27,8 +27,8 @@
 */
 
 .chat-btn {
-    right: 20px;
-    bottom: 20px;
+    right: 25px; /* Increased from 20px to move button away from corner */
+    bottom: 25px; /* Increased from 20px to move button away from corner */
     width: clamp(50px, 12vw, 60px); /* Larger size for better touch targets */
     height: clamp(50px, 12vw, 60px); /* Larger size for better touch targets */
     z-index: 999; /* Higher z-index to ensure it's above other buttons */
@@ -102,10 +102,10 @@
     }
     
     .chat-btn {
-        bottom: 10px !important; /* LOWER POSITION - moved from 15px to 5px with !important to override other styles */
+        bottom: 20px !important; /* Increased from 10px to move away from edge */
         width: 65px; /* Larger size for better visibility */
         height: 65px;
-        right: 5px; /* Closer to the edge */
+        right: 20px; /* Increased from 5px to move away from edge */
     }
     
     /* REMOVING Back to Top mobile styles */
@@ -137,8 +137,8 @@
     .chat-btn {
         width: 60px; /* Larger size on small screens */
         height: 60px;
-        right: 15px;
-        bottom: 5px !important; /* LOWER POSITION - ensure it applies on smaller screens too */
+        right: 20px; /* Increased from 15px */
+        bottom: 15px !important; /* Increased from 5px */
     }
     
     .chat-btn {
@@ -163,8 +163,8 @@
     .chat-btn {
         width: 55px;
         height: 55px;
-        bottom: 5px !important; /* LOWER POSITION - ensure it applies on very small screens */
-        right: 10px;
+        bottom: 15px !important; /* Increased from 5px */
+        right: 15px; /* Increased from 10px */
     }
     
     /* REMOVING Back to Top mobile styles

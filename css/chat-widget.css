@@ -208,25 +208,60 @@
 @media (max-width: 576px) {
     .chat-widget {
         bottom: 70px; /* Position above mobile chat button */
-        right: 15px;
-        width: calc(100% - 30px); /* Full width minus margins */
-        max-width: 350px; /* But not too wide */
-        height: 400px; /* Slightly shorter on mobile */
+        right: 10px;
+        width: calc(100% - 20px); /* Full width minus margins */
+        max-width: 350px; /* Limit width on mobile */
+        height: min(450px, 60vh); /* Taller on mobile for better text visibility */
         border-radius: 12px; /* Smaller radius on mobile */
     }
     
+    /* When chat is active, move the button to prevent overlap */
+    .chat-widget.active + .chat-btn {
+        opacity: 0.7; /* Make button semi-transparent when chat is open */
+        transform: scale(0.8); /* Make button smaller when chat is open */
+        right: 15px; /* Adjust position to prevent overlap */
+        bottom: 10px !important; /* Position at the bottom corner */
+        z-index: 997 !important; /* Lower z-index when chat is open */
+    }
+    
     .chat-header {
+        padding: 10px 15px;
         border-radius: 12px 12px 0 0; /* Match widget radius */
+    }
+    
+    .chat-header h4 {
+        font-size: 0.95rem;
+    }
+    
+    .chat-input {
+        padding: 8px;
+        gap: 6px; /* Reduce spacing between input and send button */
+    }
+    
+    .chat-input input {
+        padding: 8px 12px;
+        font-size: 16px; /* Prevent iOS zoom on focus */
+        border-radius: 18px; /* Slightly smaller radius */
+    }
+    
+    .chat-messages {
+        padding: 12px;
+    }
+    
+    .message {
+        padding: 8px 12px;
+        max-width: 90%; /* Allow messages to use more width on small screens */
+        font-size: 0.95rem;
     }
 }
 
 @media (max-width: 480px) {
     .chat-widget {
         width: calc(100% - 20px);
-        max-width: none;
         right: 10px;
-        height: min(400px, 70vh);
-        bottom: 65px;
+        height: min(450px, 70vh);
+        bottom: 70px; /* Increased to prevent overlap with button */
+        max-width: 350px; /* Maintain contained size */
     }
 
     .chat-header {
@@ -255,24 +290,241 @@
 
 @media (max-width: 360px) {
     .chat-widget {
-        bottom: 60px;
+        bottom: 65px;
         right: 8px;
         width: calc(100% - 16px);
-        height: 350px;
+        height: 70vh; /* Reduced from 80vh to stay more contained */
+        border-radius: 10px;
+        max-width: 320px; /* Maintain contained size */
+    }
+    
+    .chat-header {
+        border-radius: 10px 10px 0 0;
+        padding: 8px 12px;
     }
 
     .chat-input {
-        padding: 8px;
+        padding: 6px;
     }
 
     .chat-input input {
-        padding: 8px 12px;
-        font-size: 0.9rem;
+        padding: 8px 10px;
+        font-size: 16px; /* Maintain 16px to prevent zoom */
     }
 
     .chat-input button {
         width: 36px;
         height: 36px;
+    }
+}
+
+/* Keyboard visibility handling for mobile - IMPROVED */
+@media (max-width: 768px) {
+    /* Modify to NOT go fullscreen when keyboard is open */
+    .chat-widget.keyboard-visible {
+        bottom: 70px; /* Keep positioned above the button */
+        height: 70vh; /* Use percentage of viewport height but don't go fullscreen */
+        max-height: 500px;
+        width: calc(100% - 20px);
+        max-width: 350px; /* Maintain max-width */
+        position: fixed;
+        z-index: 1050; /* Keep above other content */
+        border-radius: 12px; /* Maintain rounded corners */
+    }
+    
+    .chat-widget.keyboard-visible .chat-header {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+    }
+    
+    /* Ensure messages get enough space but stay contained */
+    .chat-widget.keyboard-visible .chat-messages {
+        /* Use flex-grow for dynamic sizing rather than fixed height */
+        flex: 1;
+        max-height: calc(70vh - 110px); /* Adjust max height to stay contained */
+    }
+    
+    /* Remove the fullscreen code */
+    /* 
+    .chat-widget.keyboard-visible {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        border-radius: 0;
+        position: fixed;
+    }
+    */
+}
+
+/* Keyboard visibility handling for mobile - FULL SCREEN MODE */
+@media (max-width: 768px) {
+    /* Regular (non-fullscreen) mobile chat widget */
+    .chat-widget {
+        /* Keep existing styles for normal chat widget state */
+    }
+    
+    /* Full screen mode only when keyboard-visible class is added */
+    .chat-widget.keyboard-visible {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        z-index: 1050;
+        background-color: #f8f9fa; /* Light background color for better contrast */
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Ensure header stays at top with close button visible */
+    .chat-widget.keyboard-visible .chat-header {
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        border-radius: 0;
+        z-index: 2;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        padding: 15px 20px; /* Slightly larger padding */
+    }
+    
+    /* Maximize space for messages area */
+    .chat-widget.keyboard-visible .chat-messages {
+        height: calc(100% - 130px); /* Adjusted for larger header/footer */
+        max-height: none;
+        flex: 1;
+        background-color: white; /* White background for messages container */
+        border-radius: 0;
+        padding: 20px; /* More padding for comfort */
+        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle inset shadow */
+    }
+    
+    /* Keep input at the bottom */
+    .chat-widget.keyboard-visible .chat-input {
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        z-index: 2;
+        border-top: 1px solid var(--border-color-light);
+        padding: 15px 20px; /* More padding for better touch targets */
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+    }
+    
+    .chat-widget.keyboard-visible .chat-input input {
+        padding: 12px 18px; /* Larger input area when in full screen */
+        font-size: 16px; /* Ensure no zoom on iOS */
+        border-radius: 24px; /* Rounder input in full screen */
+    }
+    
+    .chat-widget.keyboard-visible .chat-input button {
+        width: 48px; /* Larger button in full screen */
+        height: 48px;
+        box-shadow: 0 2px 8px rgba(67, 97, 238, 0.3); /* More pronounced shadow */
+    }
+    
+    /* Hide the floating chat button when in full screen mode */
+    .chat-widget.keyboard-visible ~ .chat-btn {
+        display: none;
+    }
+    
+    /* Make the close button more prominent in full screen */
+    .chat-widget.keyboard-visible .chat-close {
+        min-width: 40px;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+        border-radius: 50%;
+        font-size: 1.2rem;
+    }
+    
+    /* Add more visual separation between messages in full screen mode */
+    .chat-widget.keyboard-visible .message {
+        margin-bottom: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow for each message */
+    }
+}
+
+/* Touch device optimizations - IMPROVED */
+@media (hover: none) and (pointer: coarse) {
+    /* Better scroll momentum */
+    .chat-messages {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        overscroll-behavior: contain; /* Prevent page from scrolling when chat is at top/bottom */
+    }
+    
+    .chat-input button {
+        min-width: 44px; /* Larger touch target */
+        min-height: 44px;
+        background: var(--primary-gradient); /* More vibrant on mobile */
+    }
+    
+    .chat-close {
+        min-width: 36px;
+        min-height: 36px;
+        padding: 8px;
+    }
+    
+    /* Add haptic-like visual feedback */
+    .chat-input button:active {
+        transform: scale(0.92);
+        opacity: 0.9;
+    }
+    
+    /* Make sure far edges can be scrolled to */
+    .chat-messages::after {
+        content: '';
+        height: 20px;
+        display: block;
+    }
+    
+    /* Fix iOS Safari issues */
+    @supports (-webkit-touch-callout: none) {
+        .chat-widget {
+            transform: translate3d(0, 20px, 0) scale(0.95); /* Use translate3d for better iOS performance */
+        }
+        
+        .chat-widget.active {
+            transform: translate3d(0, 0, 0) scale(1);
+        }
+        
+        /* Prevent rubber-band effect causing background to show */
+        .chat-messages {
+            padding-bottom: 30px; /* Extra padding at bottom for iOS momentum scroll */
+        }
+        
+        /* Fix notched iPhone issues */
+        .chat-widget.keyboard-visible {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    }
+}
+
+/* Fix safe area issues on iPhone X+ - UPDATED */
+@supports (padding: max(0px)) {
+    .chat-widget.keyboard-visible {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-top: env(safe-area-inset-top);
+    }
+    
+    .chat-widget.keyboard-visible .chat-input {
+        padding-bottom: max(10px, env(safe-area-inset-bottom));
     }
 }
 
