@@ -96,10 +96,10 @@
     }
     
     .chat-btn {
-        bottom: 5px !important; /* LOWER POSITION - moved from 15px to 5px with !important to override other styles */
+        bottom: 8px !important; /* LOWER POSITION - moved from 15px to 5px with !important to override other styles */
         width: 65px; /* Larger size for better visibility */
         height: 65px;
-        right: 15px; /* Closer to the edge */
+        right: 10px; /* Closer to the edge */
     }
     
     .back-to-top {
