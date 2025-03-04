@@ -96,7 +96,7 @@
     }
     
     .chat-btn {
-        bottom: 15px; /* Positioned at the bottom */
+        bottom: 5px !important; /* LOWER POSITION - moved from 15px to 5px with !important to override other styles */
         width: 65px; /* Larger size for better visibility */
         height: 65px;
         right: 15px; /* Closer to the edge */
@@ -129,6 +129,7 @@
         width: 60px; /* Larger size on small screens */
         height: 60px;
         right: 15px;
+        bottom: 5px !important; /* LOWER POSITION - ensure it applies on smaller screens too */
     }
     
     .chat-btn {
@@ -150,13 +151,10 @@
     }
     
     .chat-btn {
-        width: 55px; /* Still larger than other buttons */
+        width: 55px;
         height: 55px;
-    }
-    
-    .chat-btn {
-        bottom: 15px;
-        right: 10px; /* Very close to the corner */
+        bottom: 5px !important; /* LOWER POSITION - ensure it applies on very small screens */
+        right: 10px;
     }
     
     .back-to-top {
@@ -197,8 +195,8 @@
     /* Fix safe area issues on iPhone X+ */
     @supports (padding: max(0px)) {
         .floating-btn.chat-btn {
-            bottom: max(15px, env(safe-area-inset-bottom)); /* Position at the very bottom, respecting safe area */
-            right: max(15px, env(safe-area-inset-right)); /* Position at the very right, respecting safe area */
+            bottom: max(5px, env(safe-area-inset-bottom)) !important; /* LOWER POSITION - decreased from 15px to 5px */
+            right: max(15px, env(safe-area-inset-right));
         }
         
         .floating-btn.back-to-top {
