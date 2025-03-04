@@ -170,11 +170,6 @@
     .floating-btn:not(.active) {
         opacity: 0.8; /* Slightly more transparent when not active */
     }
-    
-    /* Space buttons further apart vertically */
-    .chat-btn {
-        bottom: 95px;
-    }
 }
 
 /* Touch device optimizations */
@@ -202,8 +197,8 @@
     /* Fix safe area issues on iPhone X+ */
     @supports (padding: max(0px)) {
         .floating-btn.chat-btn {
-            bottom: max(15px, env(safe-area-inset-bottom));
-            right: max(15px, env(safe-area-inset-right));
+            bottom: max(15px, env(safe-area-inset-bottom)); /* Position at the very bottom, respecting safe area */
+            right: max(15px, env(safe-area-inset-right)); /* Position at the very right, respecting safe area */
         }
         
         .floating-btn.back-to-top {
