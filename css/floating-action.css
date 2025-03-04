@@ -21,16 +21,8 @@
 /* Stacked layout for floating buttons - ensure consistent spacing */
 .back-to-top {
     right: 20px;
-    bottom: clamp(160px, 22vh, 180px); /* Increased spacing between buttons */
+    bottom: 85px; /* Adjusted position since dark-mode-btn is gone */
     z-index: 99; /* Ensure consistent z-index */
-}
-
-.dark-mode-btn {
-    right: 20px;
-    bottom: clamp(95px, 14vh, 110px); /* Increased spacing from chat button */
-    z-index: 999; /* Match chat button z-index for consistency */
-    width: clamp(50px, 12vw, 60px); /* Same size as chat button */
-    height: clamp(50px, 12vw, 60px); /* Same size as chat button */
 }
 
 .chat-btn {
@@ -57,11 +49,6 @@
     transform: scale(1);
 }
 
-.dark-mode-btn {
-    background: linear-gradient(135deg, #5e60ce 0%, #2b2d42 100%);
-    box-shadow: 0 4px 15px rgba(94, 96, 206, 0.3);
-}
-
 .chat-btn {
     background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
     box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
@@ -75,10 +62,6 @@
 
     .back-to-top:hover {
         box-shadow: 0 6px 20px rgba(76, 201, 240, 0.4);
-    }
-
-    .dark-mode-btn:hover {
-        box-shadow: 0 6px 20px rgba(94, 96, 206, 0.4);
     }
 
     .chat-btn:hover {
@@ -100,10 +83,6 @@
     transform: translateY(-2px);
 }
 
-.dark-mode-btn:hover i {
-    transform: rotate(20deg);
-}
-
 .chat-btn:hover i {
     transform: scale(1.1);
 }
@@ -116,21 +95,16 @@
         margin-bottom: 16px; /* Increased spacing between buttons */
     }
     
-    .dark-mode-btn {
-        bottom: 160px; /* Further apart for easier targeting */
-        width: 56px; /* Same size as chat button */
-        height: 56px;
-    }
-    
     .chat-btn {
-        bottom: 95px; /* Increased spacing */
-        width: 56px; /* Larger than other buttons */
-        height: 56px;
+        bottom: 15px; /* Positioned at the bottom */
+        width: 65px; /* Larger size for better visibility */
+        height: 65px;
+        right: 15px; /* Closer to the edge */
     }
     
     .back-to-top {
-        bottom: 30px;
-        right: 20px;
+        bottom: 90px; /* Adjusted position */
+        right: 15px;
     }
     
     /* Add subtle pulse animation to draw attention */
@@ -151,54 +125,42 @@
         height: 48px;
     }
     
-    .chat-btn, .dark-mode-btn {
-        width: 56px; /* Keep larger */
-        height: 56px;
-        bottom: 15px;
+    .chat-btn {
+        width: 60px; /* Larger size on small screens */
+        height: 60px;
         right: 15px;
+    }
+    
+    .chat-btn {
+        bottom: 15px; /* Right at the bottom corner */
     }
     
     /* Ensure better spacing between buttons on small screens */
     .back-to-top {
-        bottom: 135px;
-    }
-    
-    .dark-mode-btn {
-        bottom: 75px;
+        bottom: 90px; /* Adjusted position */
     }
 }
 
 /* Extra small screens */
 @media (max-width: 360px) {
     .floating-btn {
-        width: 44px; /* Slightly larger for better usability */
+        width: 44px;
         height: 44px;
         right: 12px; /* Closer to edge on small screens */
     }
     
-    .chat-btn, .dark-mode-btn {
-        width: 44px; /* Same size for both */
-        height: 44px;
-    }
-    
-    .dark-mode-btn {
-        bottom: 130px; /* Further adjusted for smallest screens */
-    }
-    
-    .floating-btn {
-        right: 10px;
-    }
-    
-    .back-to-top {
-        bottom: 105px;
-    }
-    
-    .dark-mode-btn {
-        bottom: 60px;
+    .chat-btn {
+        width: 55px; /* Still larger than other buttons */
+        height: 55px;
     }
     
     .chat-btn {
-        bottom: 10px;
+        bottom: 15px;
+        right: 10px; /* Very close to the corner */
+    }
+    
+    .back-to-top {
+        bottom: 90px; /* Adjusted position */
         right: 10px;
     }
 }
@@ -210,10 +172,6 @@
     }
     
     /* Space buttons further apart vertically */
-    .dark-mode-btn {
-        bottom: 150px;
-    }
-    
     .chat-btn {
         bottom: 95px;
     }
@@ -227,30 +185,30 @@
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow for better visibility */
     }
     
+    /* Chat and dark mode buttons should be larger on touch devices */
+    .chat-btn {
+        min-width: 60px;
+        min-height: 60px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        border: 2px solid rgba(255, 255, 255, 0.2); /* Subtle border for better visibility */
+    }
+    
     /* Add active state visual feedback for touch devices */
     .floating-btn:active {
         transform: scale(0.92); /* More pronounced feedback */
         opacity: 0.85;
     }
     
-    /* Add floating effect to make buttons stand out more */
-    .chat-btn, .dark-mode-btn {
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-        border: 2px solid rgba(255, 255, 255, 0.2); /* Subtle border for better visibility */
-    }
-    
     /* Fix safe area issues on iPhone X+ */
     @supports (padding: max(0px)) {
         .floating-btn.chat-btn {
-            bottom: max(20px, env(safe-area-inset-bottom));
-        }
-        
-        .floating-btn.dark-mode-btn {
-            bottom: max(80px, calc(env(safe-area-inset-bottom) + 60px));
+            bottom: max(15px, env(safe-area-inset-bottom));
+            right: max(15px, env(safe-area-inset-right));
         }
         
         .floating-btn.back-to-top {
-            bottom: max(140px, calc(env(safe-area-inset-bottom) + 120px));
+            bottom: max(90px, calc(env(safe-area-inset-bottom) + 70px));
+            right: max(15px, env(safe-area-inset-right));
         }
     }
 }

@@ -68,6 +68,10 @@ footer {
     transform: translateX(5px);
 }
 
+.footer-column ul li.dark-mode-item {
+    margin-top: 15px;
+}
+
 .social-links {
     display: flex;
     gap: 15px;
@@ -130,6 +134,33 @@ footer {
     color: rgba(255, 255, 255, 0.5);
 }
 
+.dark-mode-toggle {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: var(--body-font);
+    display: inline-flex;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.dark-mode-toggle i {
+    margin-right: 6px;
+}
+
+.dark-mode-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--primary-color);
+}
+
+body.dark-mode .dark-mode-toggle i {
+    content: "\f185"; /* Changes to sun icon when in dark mode */
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .footer-content {
@@ -170,6 +201,12 @@ footer {
     .footer-column ul li a:hover {
         transform: none;
     }
+
+    .dark-mode-toggle {
+        width: 100%;
+        justify-content: center;
+        margin-top: 5px;
+    }
 }
 
 /* Touch device optimizations */
@@ -183,6 +220,11 @@ footer {
     
     .social-links a {
         min-width: 44px;
+        min-height: 44px;
+    }
+
+    .dark-mode-toggle {
+        padding: 10px 15px; /* Larger touch target */
         min-height: 44px;
     }
 }

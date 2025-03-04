@@ -74,15 +74,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Make all stats and labels visible as a fallback
         statNumbers.forEach(num => {
-            num.style.opacity = "1";  
+            num.style.opacity = "1";
             num.style.color = "white"; // Ensure text is visible
             num.style.textShadow = "none"; // Remove glow effect
-        });
-        
-        statLabels.forEach(label => {
-            label.style.opacity = "1";
-            // Make sure the label color is set to white for visibility
-            label.style.color = "white";
         });
         
         // Animate the counting
@@ -94,11 +88,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // Calculate increment step for smooth animation
             const increment = Math.ceil(target / 40);
             
-            // Add animation class to both number and its label sibling
+            // Add animation class to number, suffix, label and description siblings
             counter.classList.add('animate');
-            if (counter.nextElementSibling) {
-                counter.nextElementSibling.classList.add('animate');
-            }
+            
+            // Find and animate siblings
+            const suffix = counter.nextElementSibling;
+            const label = suffix?.nextElementSibling;
+            const description = label?.nextElementSibling;
+            
+            if (suffix) suffix.classList.add('animate');
+            if (label) label.classList.add('animate');
+            if (description) description.classList.add('animate');
             
             // Create counter interval
             const timer = setInterval(() => {
