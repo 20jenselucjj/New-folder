@@ -18,12 +18,13 @@
     -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
 }
 
-/* Stacked layout for floating buttons - ensure consistent spacing */
+/* REMOVING Back to Top styles 
 .back-to-top {
     right: 20px;
-    bottom: 85px; /* Adjusted position since dark-mode-btn is gone */
-    z-index: 99; /* Ensure consistent z-index */
+    bottom: 85px;
+    z-index: 99;
 }
+*/
 
 .chat-btn {
     right: 20px;
@@ -33,7 +34,7 @@
     z-index: 999; /* Higher z-index to ensure it's above other buttons */
 }
 
-/* Button styles */
+/* REMOVING Back to Top styles
 .back-to-top {
     background: linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%);
     border-color: rgba(76, 201, 240, 0.3);
@@ -48,6 +49,7 @@
     visibility: visible;
     transform: scale(1);
 }
+*/
 
 .chat-btn {
     background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
@@ -60,9 +62,11 @@
         transform: translateY(-5px) scale(1.05);
     }
 
+    /* REMOVING Back to Top hover effects
     .back-to-top:hover {
         box-shadow: 0 6px 20px rgba(76, 201, 240, 0.4);
     }
+    */
 
     .chat-btn:hover {
         box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
@@ -75,6 +79,7 @@
     transition: transform 0.3s ease;
 }
 
+/* REMOVING Back to Top icon animations
 .back-to-top i {
     transform: translateY(2px);
 }
@@ -82,6 +87,7 @@
 .back-to-top:hover i {
     transform: translateY(-2px);
 }
+*/
 
 .chat-btn:hover i {
     transform: scale(1.1);
@@ -96,16 +102,19 @@
     }
     
     .chat-btn {
-        bottom: 8px !important; /* LOWER POSITION - moved from 15px to 5px with !important to override other styles */
+        bottom: 10px !important; /* LOWER POSITION - moved from 15px to 5px with !important to override other styles */
         width: 65px; /* Larger size for better visibility */
         height: 65px;
-        right: 10px; /* Closer to the edge */
+        right: 5px; /* Closer to the edge */
     }
     
+    /* REMOVING Back to Top mobile styles */
+    /*
     .back-to-top {
-        bottom: 90px; /* Adjusted position */
+        bottom: 90px;
         right: 15px;
     }
+    */
     
     /* Add subtle pulse animation to draw attention */
     .chat-btn {
@@ -137,9 +146,10 @@
     }
     
     /* Ensure better spacing between buttons on small screens */
+    /* REMOVING Back to Top mobile styles
     .back-to-top {
-        bottom: 90px; /* Adjusted position */
-    }
+        bottom: 90px; 
+    } */
 }
 
 /* Extra small screens */
@@ -157,10 +167,11 @@
         right: 10px;
     }
     
+    /* REMOVING Back to Top mobile styles
     .back-to-top {
-        bottom: 90px; /* Adjusted position */
+        bottom: 90px;
         right: 10px;
-    }
+    } */
 }
 
 /* Ensure buttons don't overlap content areas on mobile */
@@ -199,9 +210,10 @@
             right: max(15px, env(safe-area-inset-right));
         }
         
+        /* REMOVING Back to Top safe area styles
         .floating-btn.back-to-top {
             bottom: max(90px, calc(env(safe-area-inset-bottom) + 70px));
             right: max(15px, env(safe-area-inset-right));
-        }
+        } */
     }
 }

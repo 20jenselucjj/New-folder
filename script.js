@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
     testimonialSlider.addEventListener('mouseleave', startAutoplay);
     
     // Back to top button functionality
-    const backToTopBtn = document.getElementById('backToTop');
+    /* const backToTopBtn = document.getElementById('backToTop');
     
     window.addEventListener('scroll', () => {
         if (window.scrollY > 300) {
@@ -179,10 +179,10 @@ document.addEventListener('DOMContentLoaded', function() {
             top: 0,
             behavior: 'smooth'
         });
-    });
+    }); */
     
     // Back to Top Button Logic
-    const backToTopButton = document.getElementById('backToTop');
+    /* const backToTopButton = document.getElementById('backToTop');
     
     // Show back to top button when scrolling down
     window.addEventListener('scroll', function() {
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
             top: 0,
             behavior: 'smooth'
         });
-    });
+    }); */
     
     // FAQ functionality
     const faqItems = document.querySelectorAll('.faq-item');
